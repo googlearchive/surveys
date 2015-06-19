@@ -53,6 +53,7 @@ CLIENT_SECRETS = 'client_secrets.json'
 OAUTH2_STORAGE = 'oauth2.dat'
 SCOPES = [
     'https://www.googleapis.com/auth/consumersurveys',
+    'https://www.googleapis.com/auth/consumersurveys.readonly',
     'https://www.googleapis.com/auth/userinfo.email',
 ]
 API_BASE_URL = 'https://www.googleapis.com/consumersurveys/v2beta/surveys/'
@@ -67,7 +68,7 @@ def check_response(resp):
         resp: Response headers dictionary.
     """
     print 'Response headers:', resp
-    if resp['status'] != 200:
+    if int(resp['status']) != 200:
         raise Exception('Bad response status')
 
 
