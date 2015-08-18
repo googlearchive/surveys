@@ -1,6 +1,29 @@
-#% Do we need a copyright?
+#!/usr/bin/env python2.7
 
-#% make a big comment here with example usages for a couple diff use cases
+# Copyright 2015 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""Command-line tool for interacting with the Google Consumer Surveys API.
+
+TODO: Example on how to run locally.
+TODO: Example on how to setup local secrets files.
+TODO: Move secrets files to command line flags.
+
+
+
+
+"""
 
 import argparse
 import httplib2
