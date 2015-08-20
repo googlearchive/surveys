@@ -16,14 +16,12 @@
 
 """Command-line tool for interacting with the Google Consumer Surveys API.
 
-Reads client credential from clients_secrets.json in the current directory,
-initiates an OAuth handshake in the user's browser if no valid token is present
-, calls the Consumer Surveys API to read the results for a survey, and writes
-an Excel file to results.xls in the same directory.
-
 To run, generate a client secret using https://console.developers.google.com/
 under the APIs and Auth Tab for your project. Then download the JSON object
 and save it as client_secrets.json
+
+For more instructions on how to obtain the local files necessary for OAuth
+authorization, please see https://github.com/google/consumer-surveys
 
 Download and install the python Google Oauth Library:
 https://code.google.com/p/google-api-python-client/downloads/list
@@ -31,17 +29,21 @@ https://code.google.com/p/google-api-python-client/downloads/list
 Or install it with PIP:
 $ pip install google-api-python-client
 
-TODO: Example on how to run locally.
-TODO: Example on how to setup local secrets files.
-TODO: Move secrets files to command line flags.
-
-
 To create a survey:
-    ./example_client.py --owner_email <email>
+$ ./example_client.py create --owner_email <email1> <email2> --client_secrets_file <file>
+
+To set the number of desired responses on a survey:
+$ ./example_client.py set_num_responses --survey_id <id> --client_secrets_file <file>
+
+To start the survey:
+$ ./example_client.py start --survey_id <id> --client_secrets_file <file>
 
 
 To download survey results:
-    ./example_client.py --survey_id <survey_id>
+$ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls --client_secrets_file <file>
+
+Alternatively, to download survey results with a Service Account:
+$ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls --service_account <email>  --service_account_secrets_file <file>
 """
 
 import argparse
@@ -116,7 +118,7 @@ def main():
                         help='filename to store excel results.')
 
     # Service Account flags.
-    parser.add_argument('--robo_email',
+    parser.add_argument('--service_account',
                         help='Service account email to use.  Make sure that '
                              '--service_account_secrets_file is set correctly '
                              '.')
@@ -305,9 +307,9 @@ def setup_auth(args):
         An http client library with authentication enabled.
     """
     # Perform OAuth 2.0 authorization.
-    if args.robo_email:
+    if args.service_account:
         # Service accounts will follow the following authenication.
-        client_email = args.robo_email
+        client_email = args.service_account
         with open(args.service_accounts_secrets_file) as f:
             private_key = json.loads(f.read())['private_key']
         credentials = client.SignedJwtAssertionCredentials(client_email,

@@ -19,8 +19,7 @@ google-api-python-client'
 ## oauth2client.clientsecrets.InvalidClientSecretsError: File not found: "client_secrets.json"
 
 This is an error indicating that the necessary 2-legged OAuth file that
-contains your client's secrets cannot be found.  Please follow the instructions
-regarding fetch this file TODO: add these above.
+contains your client's secrets cannot be found.
 
 ## oauth2client.clientsecrets.InvalidClientSecretsError: Missing property "redirect_uris" in a client type of "web".
 
@@ -30,4 +29,4 @@ Client ID.
 ## IOError: [Errno 2] No such file or directory: 'robot_account_secret.json'
 
 This is an error indicating that the necessary OAuth file that
-contains the robot client's secrets cannot be found.  Please follow the instructions regarding fetch this file TODO: add these above.
+contains the robot client's secrets cannot be found.
