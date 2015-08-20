@@ -16,11 +16,32 @@
 
 """Command-line tool for interacting with the Google Consumer Surveys API.
 
+Reads client credential from clients_secrets.json in the current directory,
+initiates an OAuth handshake in the user's browser if no valid token is present,
+calls the Consumer Surveys API to read the results for a survey, and writes an
+Excel file to results.xls in the same directory.
+
+To run, generate a client secret using https://console.developers.google.com/
+under the APIs and Auth Tab for your project. Then download the JSON object
+and save it as client_secrets.json
+
+Download and install the python Google Oauth Library:
+https://code.google.com/p/google-api-python-client/downloads/list
+
+Or install it with PIP:
+pip install google-api-python-client
+
 TODO: Example on how to run locally.
 TODO: Example on how to setup local secrets files.
 TODO: Move secrets files to command line flags.
 
 
+To create a survey:
+    ./example_client.py --owner_email <email>
+
+
+To download survey results:
+    ./example_client.py --completed_survey_id <survey_id>
 
 
 """
@@ -91,7 +112,11 @@ def main():
     f.close()
 
     # Construct a service from the local documents
-    cs = build_from_document(service=discovery_file, http=auth_http)
+    try:
+      cs = build_from_document(service=discovery_file, http=auth_http)
+    except ValueError, e:
+      print 'Error parsing discovery file "%s": %s' % (f.name, e)
+      return
     #% do we need to do any checks that the document was read correctly and output errors if not?
 
     if not args.completed_survey_id and not args.owner_emails and not args.start_survey_id:
@@ -221,14 +246,14 @@ def setup_auth(args):
         An http client library with authentication enabled.
     """
     # Perform OAuth 2.0 authorization.
-
     # Service accounts will follow the following authenication.
     if args.robo_email:
         client_email = args.robo_email
         with open(BOT_SECRETS) as f:
           private_key = json.loads(f.read())['private_key']
-        credentials = client.SignedJwtAssertionCredentials(client_email, private_key,
-            scope=SCOPES)
+        credentials = client.SignedJwtAssertionCredentials(client_email,
+                                                           private_key,
+                                                           scope=SCOPES)
     else:
         flow = flow_from_clientsecrets(CLIENT_SECRETS, scope=SCOPES)
         storage = oauth_file.Storage(OAUTH2_STORAGE)
