@@ -313,7 +313,7 @@ def setup_auth(args):
     if args.service_account:
         # Service accounts will follow the following authenication.
         client_email = args.service_account
-        with open(args.service_accounts_secrets_file) as f:
+        with open(args.service_account_secrets_file) as f:
             private_key = json.loads(f.read())['private_key']
         credentials = client.SignedJwtAssertionCredentials(client_email,
                                                            private_key,
