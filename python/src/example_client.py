@@ -30,20 +30,24 @@ Or install it with PIP:
 $ pip install google-api-python-client
 
 To create a survey:
-$ ./example_client.py create --owner_email <email1> <email2> --client_secrets_file <file>
+$ ./example_client.py create --owner_email <email1> <email2> \
+    --client_secrets_file <file>
 
 To set the number of desired responses on a survey:
-$ ./example_client.py set_num_responses --survey_id <id> --client_secrets_file <file>
+$ ./example_client.py set_num_responses --survey_id <id> \
+    --client_secrets_file <file>
 
 To start the survey:
 $ ./example_client.py start --survey_id <id> --client_secrets_file <file>
 
 
 To download survey results:
-$ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls --client_secrets_file <file>
+$ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls \
+    --client_secrets_file <file>
 
 Alternatively, to download survey results with a Service Account:
-$ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls --service_account <email>  --service_account_secrets_file <file>
+$ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls \
+    --service_account <email>  --service_account_secrets_file <file>
 """
 
 import argparse
@@ -125,7 +129,6 @@ def main():
     parser.add_argument('--service_account_secrets_file',
                         default=_SERVICE_ACCOUNT_SECRETS,
                         help='Path to the Service Account secrets JSON file.')
-
 
     # OAuth2 client ID flags.
     parser.add_argument('--client_secrets_file',
