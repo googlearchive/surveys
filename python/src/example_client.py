@@ -81,6 +81,8 @@ SCOPES = [
 _CREATE = 'create'
 # Set the desired response count of an existing survey.
 _SET_RESPONSE_COUNT = 'set_response_count'
+# List the surveys that this user owns.
+_LIST = 'list'
 # Fetch the results of an existing survey.
 _FETCH = 'fetch'
 # Fetch the results of an existing survey.
@@ -91,6 +93,7 @@ _OPERATIONS = [
     _SET_RESPONSE_COUNT,
     _START,
     _FETCH,
+    _LIST,
 ]
 
 _DESCRIPTION = """
@@ -100,6 +103,7 @@ You must choose one of the following operations:
   - set_response_count: Set the number of desired responses for a given survey.
   - start: Start the given survey.
   - fetch: Fetch the results in .xls format for a given survey.
+  - list: List the surveys that are owned by this user.
 
 For a full list of available flags, use the --help flag.
 """
@@ -208,9 +212,26 @@ def main():
             parser.error('--survey_id is required for this operation.')
         update_survey_response_count(cs, args.survey_id, 120)
 
+    if args.operation == _LIST:
+        list_surveys(cs)
+
 
 def get_survey(cs, survey_id):
     return cs.surveys().get(surveyUrlId=survey_id).execute()
+
+
+def list_surveys(cs):
+    """Prints the surveys that are owned by the given user.
+
+    Args:
+        cs: The Consumer Surveys Service used to send the HTTP requests.
+
+    Returns:
+        A dictionary containing the survey id of the started survey.
+    """
+    results = cs.surveys().list().execute()
+    for s in results.resources:
+      print '%s' % s.surveyUrlId
 
 
 def start_survey(cs, survey_id):
