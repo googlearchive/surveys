@@ -162,7 +162,7 @@ public class App{
       question.setUnitsPosition("before");
       question.setType("openNumericQuestion");
       question.setQuestion("How much did you pay for your last phone?");
-      question.setLowValueString("1");
+      question.setLowValueLabel("1");
       question.setUnitOfMeasurementLabel("$");
       question.setSingleLineResponse(true);
       question.setOpenTextPlaceholder("enter amount here");
