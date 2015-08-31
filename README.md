@@ -10,17 +10,13 @@ Example clients of the Google Consumer Surveys API.
 
 1. [Create or select a project from the Google Developers Console.](https://pantheon.corp.google.com/project "Link to Google Developers Console")
 
-1. Select the Consumer Surveys API from your project dashboard
-
-![Screenshot of selecting the Consumer Surveys API](/../screenshots/screenshots/dev_console_pick_project_and_api.png
+2. Select the Consumer Surveys API from your project dashboard ![Screenshot of selecting the Consumer Surveys API](/../screenshots/screenshots/dev_console_pick_project_and_api.png
 "Select the Consumer Surveys API")
 
-1. Enable the Consumer Surveys API in your project
-
-![Screenshot of enabling the Consumer Surveys API](/../screenshots/screenshots/enable_consumer_surveys_api.png
+3. Enable the Consumer Surveys API in your project ![Screenshot of enabling the Consumer Surveys API](/../screenshots/screenshots/enable_consumer_surveys_api.png
 "Enable the Consumer Surveys API")
 
-1. Decide if you want to use an OAuth 2.0 client ID or a service account.  [Refer to the API documentation](https://developers.google.com/console/help/new/?hl=en_US#credentials-access-security-and-identity) for details.
+4. Decide if you want to use an OAuth 2.0 client ID or a service account.  [Refer to the API documentation](https://developers.google.com/console/help/new/?hl=en_US#credentials-access-security-and-identity) for details.
 
 - Generate an OAuth 2.0 client ID to authenticate with the Consumer Surveys API
   1. Select the Credentials menu in your project
