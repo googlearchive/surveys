@@ -52,6 +52,7 @@ import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.DataStoreFactory;
@@ -177,40 +178,44 @@ public class App{
 
       Consumersurveys cs = getConsumerSurverysService(serviceAccountEmail);
 
-      if (option.equals(CREATE)) {
-        if (owners == null) {
-          System.out.println("\n\nMissing owners. " +
-                             "You must specify owners to create a survey.");
-          System.exit(1);
+      try {
+        if (option.equals(CREATE)) {
+          if (owners == null) {
+            System.out.println("\n\nMissing owners. " +
+                               "You must specify owners to create a survey.");
+            System.exit(1);
+          }
+          Survey survey = createSurvey(cs, owners);
         }
-        Survey survey = createSurvey(cs, owners);
-      }
-      if (option.equals(START)) {
-        if (surveyId == null) {
-          System.out.println("\n\nMissing surveyId. " +
-                             "You must specify surveyId to start a survey.");
-          System.exit(1);
+        if (option.equals(START)) {
+          if (surveyId == null) {
+            System.out.println("\n\nMissing surveyId. " +
+                               "You must specify surveyId to start a survey.");
+            System.exit(1);
+          }
+          startSurvey(cs, surveyId); 
         }
-        startSurvey(cs, surveyId); 
-      }
-      if (option.equals(SET_RESPONSE_COUNT)) {
-        if (surveyId == null) {
-          System.out.println("\n\nMissing surveyId. " +
-                             "You must specify surveyId to set a response count.");
-          System.exit(1);
+        if (option.equals(SET_RESPONSE_COUNT)) {
+          if (surveyId == null) {
+            System.out.println("\n\nMissing surveyId. " +
+                               "You must specify surveyId to set a response count.");
+            System.exit(1);
+          }
+          updateSurveyResponseCount(cs, surveyId, 120);
         }
-        updateSurveyResponseCount(cs, surveyId, 120);
-      }
-      if (option.equals(FETCH)) {
-        if (surveyId == null) {
-          System.out.println("\n\nMissing surveyId. " +
-                             "You must specify surveyId to get the results.");
-          System.exit(1);
+        if (option.equals(FETCH)) {
+          if (surveyId == null) {
+            System.out.println("\n\nMissing surveyId. " +
+                               "You must specify surveyId to get the results.");
+            System.exit(1);
+          }
+          getSurveyResults(cs, surveyId, resultFile);
         }
-        getSurveyResults(cs, surveyId, resultFile);
-      }
-      if (option.equals(LIST)) {
-        listSurveys(cs);
+        if (option.equals(LIST)) {
+          listSurveys(cs);
+        }
+      } catch (GoogleJsonResponseException e) {
+        System.err.println(e.getDetails());
       }
   }
 
