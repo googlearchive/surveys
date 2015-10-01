@@ -258,7 +258,7 @@ def get_survey_results(cs, survey_id, result_file):
             survey results for.
         result_file: The file name which we write the survey results to.
     """
-    f = open(result_file, 'w')
+    f = open(result_file, 'wb')
     f.write(cs.results().get_media(surveyUrlId=survey_id).execute())
     print 'Successfully wrote survey %s results to %s\n' % (survey_id,
                                                             result_file)
