@@ -53,9 +53,9 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
   private java.lang.String gender;
 
   /**
-   * Langauge code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
+   * Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
    * users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all
-   * langauges will be used for targeting users but the survey content (which is displayed) must
+   * languages will be used for targeting users but the survey content (which is displayed) must
    * match the first language listed. Accepts standard BCP47 language codes. See:
    * https://tools.ietf.org/html/bcp47
    * The value may be {@code null}.
@@ -125,9 +125,9 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Langauge code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
+   * Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
    * users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all
-   * langauges will be used for targeting users but the survey content (which is displayed) must
+   * languages will be used for targeting users but the survey content (which is displayed) must
    * match the first language listed. Accepts standard BCP47 language codes. See:
    * https://tools.ietf.org/html/bcp47
    * @return value or {@code null} for none
@@ -137,9 +137,9 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Langauge code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
+   * Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
    * users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all
-   * langauges will be used for targeting users but the survey content (which is displayed) must
+   * languages will be used for targeting users but the survey content (which is displayed) must
    * match the first language listed. Accepts standard BCP47 language codes. See:
    * https://tools.ietf.org/html/bcp47
    * @param languages languages or {@code null} for none
