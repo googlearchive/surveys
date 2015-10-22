@@ -237,7 +237,6 @@ namespace ConsumerSurveysSample
                 WantedResponseCount = responseCount,
             };
             Survey updatedSurvey = cs.Surveys.Update(survey, surveyId).Execute();
-            Console.WriteLine("something2: " + updatedSurvey.JsonSpec);
             return updatedSurvey;
         }
 
@@ -270,7 +269,6 @@ namespace ConsumerSurveysSample
         private static Survey GetSurvey(ConsumersurveysService cs, String surveyId)
         {
             Survey survey = cs.Surveys.Get(surveyId).Execute();
-            Console.WriteLine(survey.JsonSpec);
             return survey;
         }
 
