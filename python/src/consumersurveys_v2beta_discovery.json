@@ -4,7 +4,7 @@
  "id": "consumersurveys:v2beta",
  "name": "consumersurveys",
  "version": "v2beta",
- "revision": "20150812",
+ "revision": "20151105",
  "title": "Consumer Surveys API",
  "description": "API for Google Consumer Surveys.",
  "ownerDomain": "google.com",
@@ -85,6 +85,24 @@
      }
     },
     "id": {
+     "type": "integer",
+     "format": "int32"
+    }
+   }
+  },
+  "PageInfo": {
+   "id": "PageInfo",
+   "type": "object",
+   "properties": {
+    "resultPerPage": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "startIndex": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "totalResults": {
      "type": "integer",
      "format": "int32"
     }
@@ -204,7 +222,7 @@
     },
     "languages": {
      "type": "array",
-     "description": "Langauge code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all langauges will be used for targeting users but the survey content (which is displayed) must match the first language listed. Accepts standard BCP47 language codes. See: https://tools.ietf.org/html/bcp47",
+     "description": "Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all languages will be used for targeting users but the survey content (which is displayed) must match the first language listed. Accepts standard BCP47 language codes. See: https://tools.ietf.org/html/bcp47",
      "items": {
       "type": "string"
      }
@@ -255,6 +273,10 @@
      "type": "string",
      "description": "Additional information to store on behalf of the API consumer and associate with this question. This binary blob is treated as opaque and limited to 64K.",
      "format": "byte"
+    },
+    "hasOther": {
+     "type": "boolean",
+     "description": "Option to allow open-ended text box for multi and multi-select question types. This can be used with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and MULTIPLE_ANSWERS_WITH_IMAGE question types."
     },
     "highValueLabel": {
      "type": "string",
@@ -345,16 +367,76 @@
     }
    }
   },
+  "SurveysDeleteResponse": {
+   "id": "SurveysDeleteResponse",
+   "type": "object",
+   "properties": {
+    "requestId": {
+     "type": "string",
+     "description": "Unique request id used for logging and debugging. Please include in any error reporting or troubleshooting requests."
+    }
+   }
+  },
   "SurveysListResponse": {
    "id": "SurveysListResponse",
    "type": "object",
    "properties": {
+    "pageInfo": {
+     "$ref": "PageInfo"
+    },
+    "requestId": {
+     "type": "string",
+     "description": "Unique request id used for logging and debugging. Please include in any error reporting or troubleshooting requests."
+    },
     "resources": {
      "type": "array",
      "description": "Survey object containing the specifications.",
      "items": {
       "$ref": "Survey"
      }
+    },
+    "tokenPagination": {
+     "$ref": "TokenPagination"
+    }
+   }
+  },
+  "SurveysStartResponse": {
+   "id": "SurveysStartResponse",
+   "type": "object",
+   "properties": {
+    "requestId": {
+     "type": "string",
+     "description": "Unique request id used for logging and debugging. Please include in any error reporting or troubleshooting requests."
+    },
+    "resource": {
+     "$ref": "Survey",
+     "description": "Survey object containing the specification of the started Survey."
+    }
+   }
+  },
+  "SurveysStopResponse": {
+   "id": "SurveysStopResponse",
+   "type": "object",
+   "properties": {
+    "requestId": {
+     "type": "string",
+     "description": "Unique request id used for logging and debugging. Please include in any error reporting or troubleshooting requests."
+    },
+    "resource": {
+     "$ref": "Survey",
+     "description": "Survey object containing the specification of the stopped Survey."
+    }
+   }
+  },
+  "TokenPagination": {
+   "id": "TokenPagination",
+   "type": "object",
+   "properties": {
+    "nextPageToken": {
+     "type": "string"
+    },
+    "previousPageToken": {
+     "type": "string"
     }
    }
   }
@@ -409,6 +491,9 @@
      "parameterOrder": [
       "surveyUrlId"
      ],
+     "response": {
+      "$ref": "SurveysDeleteResponse"
+     },
      "scopes": [
       "https://www.googleapis.com/auth/userinfo.email"
      ]
@@ -456,6 +541,22 @@
      "path": "surveys",
      "httpMethod": "GET",
      "description": "Method for listing the surveys owned by the caller.",
+     "parameters": {
+      "maxResults": {
+       "type": "integer",
+       "format": "uint32",
+       "location": "query"
+      },
+      "startIndex": {
+       "type": "integer",
+       "format": "uint32",
+       "location": "query"
+      },
+      "token": {
+       "type": "string",
+       "location": "query"
+      }
+     },
      "response": {
       "$ref": "SurveysListResponse"
      },
@@ -484,6 +585,42 @@
      },
      "response": {
       "$ref": "Survey"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "start": {
+     "id": "consumersurveys.surveys.start",
+     "path": "surveys/start",
+     "httpMethod": "POST",
+     "description": "Method for starting a survey.",
+     "parameters": {
+      "resourceId": {
+       "type": "string",
+       "location": "query"
+      }
+     },
+     "response": {
+      "$ref": "SurveysStartResponse"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "stop": {
+     "id": "consumersurveys.surveys.stop",
+     "path": "surveys/stop",
+     "httpMethod": "POST",
+     "description": "Method for stopping a survey.",
+     "parameters": {
+      "resourceId": {
+       "type": "string",
+       "location": "query"
+      }
+     },
+     "response": {
+      "$ref": "SurveysStopResponse"
      },
      "scopes": [
       "https://www.googleapis.com/auth/userinfo.email"

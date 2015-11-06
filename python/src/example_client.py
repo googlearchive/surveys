@@ -34,7 +34,7 @@ $ ./example_client.py create --owner_email <email1> <email2> \
     --client_secrets_file <file>
 
 To set the number of desired responses on a survey:
-$ ./example_client.py set_num_responses --survey_id <id> \
+$ ./example_client.py set_response_count --survey_id <id> \
     --client_secrets_file <file>
 
 To start the survey:
@@ -282,6 +282,7 @@ def create_survey(cs, owner_emails):
         'wantedResponseCount': 100,
         'audience': {
             'country': 'US',
+            'languages': ['en-US'],
         },
         'questions': [
             {
@@ -289,7 +290,7 @@ def create_survey(cs, owner_emails):
                 'openTextPlaceholder': 'enter amount here',
                 'question': 'How much did you pay for your last phone?',
                 'singleLineResponse': True,
-                'type': 'openNumericQuestion',
+                'type': 'numericOpenEnded',
                 'unitOfMeasurementLabel': '$',
                 'unitsPosition': 'before',
             }
