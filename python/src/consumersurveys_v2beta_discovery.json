@@ -4,7 +4,7 @@
  "id": "consumersurveys:v2beta",
  "name": "consumersurveys",
  "version": "v2beta",
- "revision": "20151105",
+ "revision": "20151201",
  "title": "Consumer Surveys API",
  "description": "API for Google Consumer Surveys.",
  "ownerDomain": "google.com",
@@ -168,6 +168,12 @@
      "description": "List of email addresses for survey owners. Must contain at least the address of the user making the API call.",
      "items": {
       "type": "string"
+     },
+     "annotations": {
+      "required": [
+       "consumersurveys.surveys.insert",
+       "consumersurveys.surveys.update"
+      ]
      }
     },
     "questions": {
@@ -175,6 +181,12 @@
      "description": "List of questions defining the survey.",
      "items": {
       "$ref": "SurveyQuestion"
+     },
+     "annotations": {
+      "required": [
+       "consumersurveys.surveys.insert",
+       "consumersurveys.surveys.update"
+      ]
      }
     },
     "recurringFrequency": {
@@ -187,7 +199,7 @@
     },
     "surveyUrlId": {
      "type": "string",
-     "description": "External survey id as viewable by survey owners in the editor view."
+     "description": "Unique survey ID, that is viewable in the URL of the Survey Creator UI"
     },
     "title": {
      "type": "string",
@@ -203,7 +215,7 @@
   "SurveyAudience": {
    "id": "SurveyAudience",
    "type": "object",
-   "description": "Specifications for the target audience of a surveys run through the API.",
+   "description": "Specifications for the target audience of a survey run through the API.",
    "properties": {
     "ages": {
      "type": "array",
@@ -214,7 +226,13 @@
     },
     "country": {
      "type": "string",
-     "description": "Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2 character language codes, e.g. 'US'."
+     "description": "Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2 character language codes, e.g. 'US'",
+     "annotations": {
+      "required": [
+       "consumersurveys.surveys.insert",
+       "consumersurveys.surveys.update"
+      ]
+     }
     },
     "gender": {
      "type": "string",
@@ -222,13 +240,20 @@
     },
     "languages": {
      "type": "array",
-     "description": "Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all languages will be used for targeting users but the survey content (which is displayed) must match the first language listed. Accepts standard BCP47 language codes. See: https://tools.ietf.org/html/bcp47",
+     "description": "Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all languages will be used for targeting users but the survey content (which is displayed) must match the first language listed. Accepts standard BCP47 language codes. See specification.",
      "items": {
       "type": "string"
+     },
+     "annotations": {
+      "required": [
+       "consumersurveys.surveys.insert",
+       "consumersurveys.surveys.update"
+      ]
      }
     },
     "populationSource": {
-     "type": "string"
+     "type": "string",
+     "description": "Online population source where the respondents are sampled from."
     }
    }
   },
@@ -260,7 +285,7 @@
     },
     "answerOrder": {
      "type": "string",
-     "description": "The randomization option for multiple choice and multi-select questions. If nothing is specified, the API enforces the default of RANDOMIZE, which applies only to multiple choice-style questions."
+     "description": "The randomization option for multiple choice and multi-select questions. If not specified, the API defaults to randomize."
     },
     "answers": {
      "type": "array",
@@ -282,14 +307,11 @@
      "type": "string",
      "description": "For rating questions, the text for the higher end of the scale, such as 'Best'. For numeric questions, a string representing a floating-point that is the maximum allowed number for a response."
     },
-    "imageAltText": {
-     "type": "string",
-     "description": "The alt_text property is required for image question types."
-    },
-    "imageData": {
-     "type": "string",
-     "description": "Inline jpeg, gif, tiff, bmp, or png image raw bytes for an image question types. Maximum size of 5MB.",
-     "format": "byte"
+    "images": {
+     "type": "array",
+     "items": {
+      "$ref": "SurveyQuestionImage"
+     }
     },
     "lastAnswerPositionPinned": {
      "type": "boolean",
@@ -323,6 +345,10 @@
      "type": "string",
      "description": "Required question text shown to the respondent."
     },
+    "sentimentText": {
+     "type": "string",
+     "description": "Used by the rating scale with text question type, this text goes along with the \"question\" field when presented to the respondent and is the text a 'rating with text' question asks a user to rate."
+    },
     "singleLineResponse": {
      "type": "boolean",
      "description": "Option to allow multiple line open text responses instead of a single line response."
@@ -336,7 +362,13 @@
     },
     "type": {
      "type": "string",
-     "description": "Required field defining the question type."
+     "description": "Required field defining the question type. For details about configuring different type of questions, consult the  question configuration guide.",
+     "annotations": {
+      "required": [
+       "consumersurveys.surveys.insert",
+       "consumersurveys.surveys.update"
+      ]
+     }
     },
     "unitOfMeasurementLabel": {
      "type": "string",
@@ -349,6 +381,26 @@
     "videoId": {
      "type": "string",
      "description": "The youtube video id to be show in video questions."
+    }
+   }
+  },
+  "SurveyQuestionImage": {
+   "id": "SurveyQuestionImage",
+   "type": "object",
+   "description": "Container object for image data and alt_text.",
+   "properties": {
+    "altText": {
+     "type": "string",
+     "description": "The alt text property used in image tags is required for all images."
+    },
+    "data": {
+     "type": "string",
+     "description": "Inline jpeg, gif, tiff, bmp, or png image raw bytes for an image question types.",
+     "format": "byte"
+    },
+    "url": {
+     "type": "string",
+     "description": "The read-only url for the hosted images."
     }
    }
   },
@@ -559,32 +611,6 @@
      },
      "response": {
       "$ref": "SurveysListResponse"
-     },
-     "scopes": [
-      "https://www.googleapis.com/auth/userinfo.email"
-     ]
-    },
-    "patch": {
-     "id": "consumersurveys.surveys.patch",
-     "path": "surveys/{surveyUrlId}",
-     "httpMethod": "PATCH",
-     "description": "Method for updating a survey. This method supports patch semantics.",
-     "parameters": {
-      "surveyUrlId": {
-       "type": "string",
-       "description": "External Url Id for the survey.",
-       "required": true,
-       "location": "path"
-      }
-     },
-     "parameterOrder": [
-      "surveyUrlId"
-     ],
-     "request": {
-      "$ref": "Survey"
-     },
-     "response": {
-      "$ref": "Survey"
      },
      "scopes": [
       "https://www.googleapis.com/auth/userinfo.email"

@@ -6,7 +6,7 @@ import setuptools
 # To debug, set DISTUTILS_DEBUG env var to anything.
 setuptools.setup(
     name="GoogleConsumerSurveys",
-    version="0.0.0.2",
+    version="0.0.0.3",
     packages=setuptools.find_packages(),
     author="Google Consumer Surveys",
     author_email="gcs-api-trusted-testers@googlegroups.com",
