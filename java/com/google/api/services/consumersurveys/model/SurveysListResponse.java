@@ -30,6 +30,20 @@ package com.google.api.services.consumersurveys.model;
 public final class SurveysListResponse extends com.google.api.client.json.GenericJson {
 
   /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private PageInfo pageInfo;
+
+  /**
+   * Unique request id used for logging and debugging. Please include in any error reporting or
+   * troubleshooting requests.
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.String requestId;
+
+  /**
    * Survey object containing the specifications.
    * The value may be {@code null}.
    */
@@ -40,6 +54,46 @@ public final class SurveysListResponse extends com.google.api.client.json.Generi
     // hack to force ProGuard to consider Survey used, since otherwise it would be stripped out
     // see https://github.com/google/google-api-java-client/issues/543
     com.google.api.client.util.Data.nullOf(Survey.class);
+  }
+
+  /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private TokenPagination tokenPagination;
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public PageInfo getPageInfo() {
+    return pageInfo;
+  }
+
+  /**
+   * @param pageInfo pageInfo or {@code null} for none
+   */
+  public SurveysListResponse setPageInfo(PageInfo pageInfo) {
+    this.pageInfo = pageInfo;
+    return this;
+  }
+
+  /**
+   * Unique request id used for logging and debugging. Please include in any error reporting or
+   * troubleshooting requests.
+   * @return value or {@code null} for none
+   */
+  public java.lang.String getRequestId() {
+    return requestId;
+  }
+
+  /**
+   * Unique request id used for logging and debugging. Please include in any error reporting or
+   * troubleshooting requests.
+   * @param requestId requestId or {@code null} for none
+   */
+  public SurveysListResponse setRequestId(java.lang.String requestId) {
+    this.requestId = requestId;
+    return this;
   }
 
   /**
@@ -56,6 +110,21 @@ public final class SurveysListResponse extends com.google.api.client.json.Generi
    */
   public SurveysListResponse setResources(java.util.List<Survey> resources) {
     this.resources = resources;
+    return this;
+  }
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public TokenPagination getTokenPagination() {
+    return tokenPagination;
+  }
+
+  /**
+   * @param tokenPagination tokenPagination or {@code null} for none
+   */
+  public SurveysListResponse setTokenPagination(TokenPagination tokenPagination) {
+    this.tokenPagination = tokenPagination;
     return this;
   }
 

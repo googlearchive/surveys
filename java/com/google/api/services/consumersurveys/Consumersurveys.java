@@ -46,7 +46,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
         com.google.api.client.googleapis.GoogleUtils.MINOR_VERSION >= 15,
         "You are currently running with version %s of google-api-client. " +
         "You need at least version 1.15 of google-api-client to run version " +
-        "1.20.0-SNAPSHOT of the Consumer Surveys API library.", com.google.api.client.googleapis.GoogleUtils.VERSION);
+        "1.22.0-SNAPSHOT of the Consumer Surveys API library.", com.google.api.client.googleapis.GoogleUtils.VERSION);
   }
 
   /**
@@ -295,7 +295,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       return result;
     }
 
-    public class Delete extends ConsumersurveysRequest<Void> {
+    public class Delete extends ConsumersurveysRequest<com.google.api.services.consumersurveys.model.SurveysDeleteResponse> {
 
       private static final String REST_PATH = "surveys/{surveyUrlId}";
 
@@ -314,7 +314,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
        * @since 1.13
        */
       protected Delete(java.lang.String surveyUrlId) {
-        super(Consumersurveys.this, "DELETE", REST_PATH, null, Void.class);
+        super(Consumersurveys.this, "DELETE", REST_PATH, null, com.google.api.services.consumersurveys.model.SurveysDeleteResponse.class);
         this.surveyUrlId = com.google.api.client.util.Preconditions.checkNotNull(surveyUrlId, "Required parameter surveyUrlId must be specified.");
       }
 
@@ -639,107 +639,237 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
         return (List) super.setUserIp(userIp);
       }
 
+      @com.google.api.client.util.Key
+      private java.lang.Long maxResults;
+
+      /**
+
+       */
+      public java.lang.Long getMaxResults() {
+        return maxResults;
+      }
+
+      public List setMaxResults(java.lang.Long maxResults) {
+        this.maxResults = maxResults;
+        return this;
+      }
+
+      @com.google.api.client.util.Key
+      private java.lang.Long startIndex;
+
+      /**
+
+       */
+      public java.lang.Long getStartIndex() {
+        return startIndex;
+      }
+
+      public List setStartIndex(java.lang.Long startIndex) {
+        this.startIndex = startIndex;
+        return this;
+      }
+
+      @com.google.api.client.util.Key
+      private java.lang.String token;
+
+      /**
+
+       */
+      public java.lang.String getToken() {
+        return token;
+      }
+
+      public List setToken(java.lang.String token) {
+        this.token = token;
+        return this;
+      }
+
       @Override
       public List set(String parameterName, Object value) {
         return (List) super.set(parameterName, value);
       }
     }
     /**
-     * Method for updating a survey. This method supports patch semantics.
+     * Method for starting a survey.
      *
-     * Create a request for the method "surveys.patch".
+     * Create a request for the method "surveys.start".
      *
      * This request holds the parameters needed by the consumersurveys server.  After setting any
-     * optional parameters, call the {@link Patch#execute()} method to invoke the remote operation.
+     * optional parameters, call the {@link Start#execute()} method to invoke the remote operation.
      *
-     * @param surveyUrlId External Url Id for the survey.
-     * @param content the {@link com.google.api.services.consumersurveys.model.Survey}
      * @return the request
      */
-    public Patch patch(java.lang.String surveyUrlId, com.google.api.services.consumersurveys.model.Survey content) throws java.io.IOException {
-      Patch result = new Patch(surveyUrlId, content);
+    public Start start() throws java.io.IOException {
+      Start result = new Start();
       initialize(result);
       return result;
     }
 
-    public class Patch extends ConsumersurveysRequest<com.google.api.services.consumersurveys.model.Survey> {
+    public class Start extends ConsumersurveysRequest<com.google.api.services.consumersurveys.model.SurveysStartResponse> {
 
-      private static final String REST_PATH = "surveys/{surveyUrlId}";
+      private static final String REST_PATH = "surveys/start";
 
       /**
-       * Method for updating a survey. This method supports patch semantics.
+       * Method for starting a survey.
        *
-       * Create a request for the method "surveys.patch".
+       * Create a request for the method "surveys.start".
        *
        * This request holds the parameters needed by the the consumersurveys server.  After setting any
-       * optional parameters, call the {@link Patch#execute()} method to invoke the remote operation.
+       * optional parameters, call the {@link Start#execute()} method to invoke the remote operation.
        * <p> {@link
-       * Patch#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)} must
+       * Start#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)} must
        * be called to initialize this instance immediately after invoking the constructor. </p>
        *
-       * @param surveyUrlId External Url Id for the survey.
-       * @param content the {@link com.google.api.services.consumersurveys.model.Survey}
        * @since 1.13
        */
-      protected Patch(java.lang.String surveyUrlId, com.google.api.services.consumersurveys.model.Survey content) {
-        super(Consumersurveys.this, "PATCH", REST_PATH, content, com.google.api.services.consumersurveys.model.Survey.class);
-        this.surveyUrlId = com.google.api.client.util.Preconditions.checkNotNull(surveyUrlId, "Required parameter surveyUrlId must be specified.");
+      protected Start() {
+        super(Consumersurveys.this, "POST", REST_PATH, null, com.google.api.services.consumersurveys.model.SurveysStartResponse.class);
       }
 
       @Override
-      public Patch setAlt(java.lang.String alt) {
-        return (Patch) super.setAlt(alt);
+      public Start setAlt(java.lang.String alt) {
+        return (Start) super.setAlt(alt);
       }
 
       @Override
-      public Patch setFields(java.lang.String fields) {
-        return (Patch) super.setFields(fields);
+      public Start setFields(java.lang.String fields) {
+        return (Start) super.setFields(fields);
       }
 
       @Override
-      public Patch setKey(java.lang.String key) {
-        return (Patch) super.setKey(key);
+      public Start setKey(java.lang.String key) {
+        return (Start) super.setKey(key);
       }
 
       @Override
-      public Patch setOauthToken(java.lang.String oauthToken) {
-        return (Patch) super.setOauthToken(oauthToken);
+      public Start setOauthToken(java.lang.String oauthToken) {
+        return (Start) super.setOauthToken(oauthToken);
       }
 
       @Override
-      public Patch setPrettyPrint(java.lang.Boolean prettyPrint) {
-        return (Patch) super.setPrettyPrint(prettyPrint);
+      public Start setPrettyPrint(java.lang.Boolean prettyPrint) {
+        return (Start) super.setPrettyPrint(prettyPrint);
       }
 
       @Override
-      public Patch setQuotaUser(java.lang.String quotaUser) {
-        return (Patch) super.setQuotaUser(quotaUser);
+      public Start setQuotaUser(java.lang.String quotaUser) {
+        return (Start) super.setQuotaUser(quotaUser);
       }
 
       @Override
-      public Patch setUserIp(java.lang.String userIp) {
-        return (Patch) super.setUserIp(userIp);
+      public Start setUserIp(java.lang.String userIp) {
+        return (Start) super.setUserIp(userIp);
       }
 
-      /** External Url Id for the survey. */
       @com.google.api.client.util.Key
-      private java.lang.String surveyUrlId;
+      private java.lang.String resourceId;
 
-      /** External Url Id for the survey.
+      /**
+
        */
-      public java.lang.String getSurveyUrlId() {
-        return surveyUrlId;
+      public java.lang.String getResourceId() {
+        return resourceId;
       }
 
-      /** External Url Id for the survey. */
-      public Patch setSurveyUrlId(java.lang.String surveyUrlId) {
-        this.surveyUrlId = surveyUrlId;
+      public Start setResourceId(java.lang.String resourceId) {
+        this.resourceId = resourceId;
         return this;
       }
 
       @Override
-      public Patch set(String parameterName, Object value) {
-        return (Patch) super.set(parameterName, value);
+      public Start set(String parameterName, Object value) {
+        return (Start) super.set(parameterName, value);
+      }
+    }
+    /**
+     * Method for stopping a survey.
+     *
+     * Create a request for the method "surveys.stop".
+     *
+     * This request holds the parameters needed by the consumersurveys server.  After setting any
+     * optional parameters, call the {@link Stop#execute()} method to invoke the remote operation.
+     *
+     * @return the request
+     */
+    public Stop stop() throws java.io.IOException {
+      Stop result = new Stop();
+      initialize(result);
+      return result;
+    }
+
+    public class Stop extends ConsumersurveysRequest<com.google.api.services.consumersurveys.model.SurveysStopResponse> {
+
+      private static final String REST_PATH = "surveys/stop";
+
+      /**
+       * Method for stopping a survey.
+       *
+       * Create a request for the method "surveys.stop".
+       *
+       * This request holds the parameters needed by the the consumersurveys server.  After setting any
+       * optional parameters, call the {@link Stop#execute()} method to invoke the remote operation. <p>
+       * {@link Stop#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)}
+       * must be called to initialize this instance immediately after invoking the constructor. </p>
+       *
+       * @since 1.13
+       */
+      protected Stop() {
+        super(Consumersurveys.this, "POST", REST_PATH, null, com.google.api.services.consumersurveys.model.SurveysStopResponse.class);
+      }
+
+      @Override
+      public Stop setAlt(java.lang.String alt) {
+        return (Stop) super.setAlt(alt);
+      }
+
+      @Override
+      public Stop setFields(java.lang.String fields) {
+        return (Stop) super.setFields(fields);
+      }
+
+      @Override
+      public Stop setKey(java.lang.String key) {
+        return (Stop) super.setKey(key);
+      }
+
+      @Override
+      public Stop setOauthToken(java.lang.String oauthToken) {
+        return (Stop) super.setOauthToken(oauthToken);
+      }
+
+      @Override
+      public Stop setPrettyPrint(java.lang.Boolean prettyPrint) {
+        return (Stop) super.setPrettyPrint(prettyPrint);
+      }
+
+      @Override
+      public Stop setQuotaUser(java.lang.String quotaUser) {
+        return (Stop) super.setQuotaUser(quotaUser);
+      }
+
+      @Override
+      public Stop setUserIp(java.lang.String userIp) {
+        return (Stop) super.setUserIp(userIp);
+      }
+
+      @com.google.api.client.util.Key
+      private java.lang.String resourceId;
+
+      /**
+
+       */
+      public java.lang.String getResourceId() {
+        return resourceId;
+      }
+
+      public Stop setResourceId(java.lang.String resourceId) {
+        this.resourceId = resourceId;
+        return this;
+      }
+
+      @Override
+      public Stop set(String parameterName, Object value) {
+        return (Stop) super.set(parameterName, value);
       }
     }
     /**

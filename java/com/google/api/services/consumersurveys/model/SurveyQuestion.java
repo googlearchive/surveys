@@ -40,9 +40,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.lang.Integer answerCountLimitPerOption;
 
   /**
-   * The randomization option for multiple choice and multi-select questions. If nothing is
-   * specified, the API enforces the default of RANDOMIZE, which applies only to multiple choice-
-   * style questions.
+   * The randomization option for multiple choice and multi-select questions. If not specified, the
+   * API defaults to randomize.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -65,8 +64,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
 
   /**
    * Option to allow open-ended text box for multi and multi-select question types. This can be used
-   * with MULTIPLE_CHOICE_QUESTION, MULTIPLE_CHOICE_WITH_IMAGE_QUESTION, MULTI_SELECT_QUESTION, and
-   * MULTI_SELECT_WITH_IMAGE_QUESTION question types.
+   * with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and MULTIPLE_ANSWERS_WITH_IMAGE
+   * question types.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -82,19 +81,10 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.lang.String highValueLabel;
 
   /**
-   * The alt_text property is required for image question types.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String imageAltText;
-
-  /**
-   * Inline jpeg, gif, tiff, bmp, or png image raw bytes for an image question types. Maximum size
-   * of 5MB.
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private java.lang.String imageData;
+  private java.util.List<SurveyQuestionImage> images;
 
   /**
    * Currently only support pinning an answer option to the last position.
@@ -149,6 +139,15 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.lang.String question;
 
   /**
+   * Used by the rating scale with text question type, this text goes along with the "question"
+   * field when presented to the respondent and is the text a 'rating with text' question asks a
+   * user to rate.
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.String sentimentText;
+
+  /**
    * Option to allow multiple line open text responses instead of a single line response.
    * The value may be {@code null}.
    */
@@ -164,7 +163,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.util.List<java.lang.String> thresholdAnswers;
 
   /**
-   * Required field defining the question type.
+   * Required field defining the question type. For details about configuring different type of
+   * questions, consult the  question configuration guide.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -215,9 +215,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * The randomization option for multiple choice and multi-select questions. If nothing is
-   * specified, the API enforces the default of RANDOMIZE, which applies only to multiple choice-
-   * style questions.
+   * The randomization option for multiple choice and multi-select questions. If not specified, the
+   * API defaults to randomize.
    * @return value or {@code null} for none
    */
   public java.lang.String getAnswerOrder() {
@@ -225,9 +224,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * The randomization option for multiple choice and multi-select questions. If nothing is
-   * specified, the API enforces the default of RANDOMIZE, which applies only to multiple choice-
-   * style questions.
+   * The randomization option for multiple choice and multi-select questions. If not specified, the
+   * API defaults to randomize.
    * @param answerOrder answerOrder or {@code null} for none
    */
   public SurveyQuestion setAnswerOrder(java.lang.String answerOrder) {
@@ -303,8 +301,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
 
   /**
    * Option to allow open-ended text box for multi and multi-select question types. This can be used
-   * with MULTIPLE_CHOICE_QUESTION, MULTIPLE_CHOICE_WITH_IMAGE_QUESTION, MULTI_SELECT_QUESTION, and
-   * MULTI_SELECT_WITH_IMAGE_QUESTION question types.
+   * with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and MULTIPLE_ANSWERS_WITH_IMAGE
+   * question types.
    * @return value or {@code null} for none
    */
   public java.lang.Boolean getHasOther() {
@@ -313,8 +311,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
 
   /**
    * Option to allow open-ended text box for multi and multi-select question types. This can be used
-   * with MULTIPLE_CHOICE_QUESTION, MULTIPLE_CHOICE_WITH_IMAGE_QUESTION, MULTI_SELECT_QUESTION, and
-   * MULTI_SELECT_WITH_IMAGE_QUESTION question types.
+   * with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and MULTIPLE_ANSWERS_WITH_IMAGE
+   * question types.
    * @param hasOther hasOther or {@code null} for none
    */
   public SurveyQuestion setHasOther(java.lang.Boolean hasOther) {
@@ -344,68 +342,17 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * The alt_text property is required for image question types.
    * @return value or {@code null} for none
    */
-  public java.lang.String getImageAltText() {
-    return imageAltText;
+  public java.util.List<SurveyQuestionImage> getImages() {
+    return images;
   }
 
   /**
-   * The alt_text property is required for image question types.
-   * @param imageAltText imageAltText or {@code null} for none
+   * @param images images or {@code null} for none
    */
-  public SurveyQuestion setImageAltText(java.lang.String imageAltText) {
-    this.imageAltText = imageAltText;
-    return this;
-  }
-
-  /**
-   * Inline jpeg, gif, tiff, bmp, or png image raw bytes for an image question types. Maximum size
-   * of 5MB.
-   * @see #decodeImageData()
-   * @return value or {@code null} for none
-   */
-  public java.lang.String getImageData() {
-    return imageData;
-  }
-
-  /**
-   * Inline jpeg, gif, tiff, bmp, or png image raw bytes for an image question types. Maximum size
-   * of 5MB.
-   * @see #getImageData()
-   * @return Base64 decoded value or {@code null} for none
-   *
-   * @since 1.14
-   */
-  public byte[] decodeImageData() {
-    return com.google.api.client.util.Base64.decodeBase64(imageData);
-  }
-
-  /**
-   * Inline jpeg, gif, tiff, bmp, or png image raw bytes for an image question types. Maximum size
-   * of 5MB.
-   * @see #encodeImageData()
-   * @param imageData imageData or {@code null} for none
-   */
-  public SurveyQuestion setImageData(java.lang.String imageData) {
-    this.imageData = imageData;
-    return this;
-  }
-
-  /**
-   * Inline jpeg, gif, tiff, bmp, or png image raw bytes for an image question types. Maximum size
-   * of 5MB.
-   * @see #setImageData()
-   *
-   * <p>
-   * The value is encoded Base64 or {@code null} for none.
-   * </p>
-   *
-   * @since 1.14
-   */
-  public SurveyQuestion encodeImageData(byte[] imageData) {
-    this.imageData = com.google.api.client.util.Base64.encodeBase64URLSafeString(imageData);
+  public SurveyQuestion setImages(java.util.List<SurveyQuestionImage> images) {
+    this.images = images;
     return this;
   }
 
@@ -535,6 +482,27 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
+   * Used by the rating scale with text question type, this text goes along with the "question"
+   * field when presented to the respondent and is the text a 'rating with text' question asks a
+   * user to rate.
+   * @return value or {@code null} for none
+   */
+  public java.lang.String getSentimentText() {
+    return sentimentText;
+  }
+
+  /**
+   * Used by the rating scale with text question type, this text goes along with the "question"
+   * field when presented to the respondent and is the text a 'rating with text' question asks a
+   * user to rate.
+   * @param sentimentText sentimentText or {@code null} for none
+   */
+  public SurveyQuestion setSentimentText(java.lang.String sentimentText) {
+    this.sentimentText = sentimentText;
+    return this;
+  }
+
+  /**
    * Option to allow multiple line open text responses instead of a single line response.
    * @return value or {@code null} for none
    */
@@ -571,7 +539,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Required field defining the question type.
+   * Required field defining the question type. For details about configuring different type of
+   * questions, consult the  question configuration guide.
    * @return value or {@code null} for none
    */
   public java.lang.String getType() {
@@ -579,7 +548,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Required field defining the question type.
+   * Required field defining the question type. For details about configuring different type of
+   * questions, consult the  question configuration guide.
    * @param type type or {@code null} for none
    */
   public SurveyQuestion setType(java.lang.String type) {

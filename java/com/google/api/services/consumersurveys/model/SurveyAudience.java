@@ -17,7 +17,7 @@
 package com.google.api.services.consumersurveys.model;
 
 /**
- * Specifications for the target audience of a surveys run through the API.
+ * Specifications for the target audience of a survey run through the API.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the Consumer Surveys API. For a detailed explanation see:
@@ -39,7 +39,7 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
 
   /**
    * Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2
-   * character language codes, e.g. 'US'.
+   * character language codes, e.g. 'US'
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -56,14 +56,14 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
    * Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
    * users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all
    * languages will be used for targeting users but the survey content (which is displayed) must
-   * match the first language listed. Accepts standard BCP47 language codes. See:
-   * https://tools.ietf.org/html/bcp47
+   * match the first language listed. Accepts standard BCP47 language codes. See specification.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
   private java.util.List<java.lang.String> languages;
 
   /**
+   * Online population source where the respondents are sampled from.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -90,7 +90,7 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
 
   /**
    * Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2
-   * character language codes, e.g. 'US'.
+   * character language codes, e.g. 'US'
    * @return value or {@code null} for none
    */
   public java.lang.String getCountry() {
@@ -99,7 +99,7 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
 
   /**
    * Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2
-   * character language codes, e.g. 'US'.
+   * character language codes, e.g. 'US'
    * @param country country or {@code null} for none
    */
   public SurveyAudience setCountry(java.lang.String country) {
@@ -128,8 +128,7 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
    * Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
    * users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all
    * languages will be used for targeting users but the survey content (which is displayed) must
-   * match the first language listed. Accepts standard BCP47 language codes. See:
-   * https://tools.ietf.org/html/bcp47
+   * match the first language listed. Accepts standard BCP47 language codes. See specification.
    * @return value or {@code null} for none
    */
   public java.util.List<java.lang.String> getLanguages() {
@@ -140,8 +139,7 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
    * Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
    * users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all
    * languages will be used for targeting users but the survey content (which is displayed) must
-   * match the first language listed. Accepts standard BCP47 language codes. See:
-   * https://tools.ietf.org/html/bcp47
+   * match the first language listed. Accepts standard BCP47 language codes. See specification.
    * @param languages languages or {@code null} for none
    */
   public SurveyAudience setLanguages(java.util.List<java.lang.String> languages) {
@@ -150,6 +148,7 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
   }
 
   /**
+   * Online population source where the respondents are sampled from.
    * @return value or {@code null} for none
    */
   public java.lang.String getPopulationSource() {
@@ -157,6 +156,7 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
   }
 
   /**
+   * Online population source where the respondents are sampled from.
    * @param populationSource populationSource or {@code null} for none
    */
   public SurveyAudience setPopulationSource(java.lang.String populationSource) {

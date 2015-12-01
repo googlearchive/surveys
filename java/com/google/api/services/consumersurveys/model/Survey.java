@@ -104,7 +104,7 @@ public final class Survey extends com.google.api.client.json.GenericJson {
   private java.lang.String state;
 
   /**
-   * External survey id as viewable by survey owners in the editor view.
+   * Unique survey ID, that is viewable in the URL of the Survey Creator UI
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -333,7 +333,7 @@ public final class Survey extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * External survey id as viewable by survey owners in the editor view.
+   * Unique survey ID, that is viewable in the URL of the Survey Creator UI
    * @return value or {@code null} for none
    */
   public java.lang.String getSurveyUrlId() {
@@ -341,7 +341,7 @@ public final class Survey extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * External survey id as viewable by survey owners in the editor view.
+   * Unique survey ID, that is viewable in the URL of the Survey Creator UI
    * @param surveyUrlId surveyUrlId or {@code null} for none
    */
   public Survey setSurveyUrlId(java.lang.String surveyUrlId) {
