@@ -30,16 +30,6 @@ package com.google.api.services.consumersurveys.model;
 public final class SurveyQuestion extends com.google.api.client.json.GenericJson {
 
   /**
-   * The number of answers needed for each option for a multiple choice question. When set, when the
-   * number of answers for an option is reached, the option is excluded from the question. The
-   * answer_count_limit given will be targeted at best but you may receive more answers than
-   * expected.
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private java.lang.Integer answerCountLimitPerOption;
-
-  /**
    * The randomization option for multiple choice and multi-select questions. If not specified, the
    * API defaults to randomize.
    * The value may be {@code null}.
@@ -53,14 +43,6 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
    */
   @com.google.api.client.util.Key
   private java.util.List<java.lang.String> answers;
-
-  /**
-   * Additional information to store on behalf of the API consumer and associate with this question.
-   * This binary blob is treated as opaque and limited to 64K.
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private java.lang.String customerData;
 
   /**
    * Option to allow open-ended text box for multi and multi-select question types. This can be used
@@ -103,12 +85,12 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.lang.String lowValueLabel;
 
   /**
-   * The number of answers to be displayed for a multiple choice question. If not set, it is the
-   * number of answers. If set, the answers shown are chosen randomly.
+   * Option to force the user to pick one of the open text suggestions. This requires that
+   * suggestions are provided for this question.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.Integer numAnswersDisplayed;
+  private java.lang.Boolean mustPickSuggestion;
 
   /**
    * Number of stars to use for ratings questions.
@@ -125,7 +107,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.lang.String openTextPlaceholder;
 
   /**
-   * A list of suggested answers for open text question auto-complete.
+   * A list of suggested answers for open text question auto-complete. This is only valid if
+   * single_line_response is true.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -148,7 +131,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.lang.String sentimentText;
 
   /**
-   * Option to allow multiple line open text responses instead of a single line response.
+   * Option to allow multiple line open text responses instead of a single line response. Note that
+   * we don't show auto-complete suggestions with multiple line responses.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -192,29 +176,6 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.lang.String videoId;
 
   /**
-   * The number of answers needed for each option for a multiple choice question. When set, when the
-   * number of answers for an option is reached, the option is excluded from the question. The
-   * answer_count_limit given will be targeted at best but you may receive more answers than
-   * expected.
-   * @return value or {@code null} for none
-   */
-  public java.lang.Integer getAnswerCountLimitPerOption() {
-    return answerCountLimitPerOption;
-  }
-
-  /**
-   * The number of answers needed for each option for a multiple choice question. When set, when the
-   * number of answers for an option is reached, the option is excluded from the question. The
-   * answer_count_limit given will be targeted at best but you may receive more answers than
-   * expected.
-   * @param answerCountLimitPerOption answerCountLimitPerOption or {@code null} for none
-   */
-  public SurveyQuestion setAnswerCountLimitPerOption(java.lang.Integer answerCountLimitPerOption) {
-    this.answerCountLimitPerOption = answerCountLimitPerOption;
-    return this;
-  }
-
-  /**
    * The randomization option for multiple choice and multi-select questions. If not specified, the
    * API defaults to randomize.
    * @return value or {@code null} for none
@@ -247,55 +208,6 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
    */
   public SurveyQuestion setAnswers(java.util.List<java.lang.String> answers) {
     this.answers = answers;
-    return this;
-  }
-
-  /**
-   * Additional information to store on behalf of the API consumer and associate with this question.
-   * This binary blob is treated as opaque and limited to 64K.
-   * @see #decodeCustomerData()
-   * @return value or {@code null} for none
-   */
-  public java.lang.String getCustomerData() {
-    return customerData;
-  }
-
-  /**
-   * Additional information to store on behalf of the API consumer and associate with this question.
-   * This binary blob is treated as opaque and limited to 64K.
-   * @see #getCustomerData()
-   * @return Base64 decoded value or {@code null} for none
-   *
-   * @since 1.14
-   */
-  public byte[] decodeCustomerData() {
-    return com.google.api.client.util.Base64.decodeBase64(customerData);
-  }
-
-  /**
-   * Additional information to store on behalf of the API consumer and associate with this question.
-   * This binary blob is treated as opaque and limited to 64K.
-   * @see #encodeCustomerData()
-   * @param customerData customerData or {@code null} for none
-   */
-  public SurveyQuestion setCustomerData(java.lang.String customerData) {
-    this.customerData = customerData;
-    return this;
-  }
-
-  /**
-   * Additional information to store on behalf of the API consumer and associate with this question.
-   * This binary blob is treated as opaque and limited to 64K.
-   * @see #setCustomerData()
-   *
-   * <p>
-   * The value is encoded Base64 or {@code null} for none.
-   * </p>
-   *
-   * @since 1.14
-   */
-  public SurveyQuestion encodeCustomerData(byte[] customerData) {
-    this.customerData = com.google.api.client.util.Base64.encodeBase64URLSafeString(customerData);
     return this;
   }
 
@@ -395,21 +307,21 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * The number of answers to be displayed for a multiple choice question. If not set, it is the
-   * number of answers. If set, the answers shown are chosen randomly.
+   * Option to force the user to pick one of the open text suggestions. This requires that
+   * suggestions are provided for this question.
    * @return value or {@code null} for none
    */
-  public java.lang.Integer getNumAnswersDisplayed() {
-    return numAnswersDisplayed;
+  public java.lang.Boolean getMustPickSuggestion() {
+    return mustPickSuggestion;
   }
 
   /**
-   * The number of answers to be displayed for a multiple choice question. If not set, it is the
-   * number of answers. If set, the answers shown are chosen randomly.
-   * @param numAnswersDisplayed numAnswersDisplayed or {@code null} for none
+   * Option to force the user to pick one of the open text suggestions. This requires that
+   * suggestions are provided for this question.
+   * @param mustPickSuggestion mustPickSuggestion or {@code null} for none
    */
-  public SurveyQuestion setNumAnswersDisplayed(java.lang.Integer numAnswersDisplayed) {
-    this.numAnswersDisplayed = numAnswersDisplayed;
+  public SurveyQuestion setMustPickSuggestion(java.lang.Boolean mustPickSuggestion) {
+    this.mustPickSuggestion = mustPickSuggestion;
     return this;
   }
 
@@ -448,7 +360,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * A list of suggested answers for open text question auto-complete.
+   * A list of suggested answers for open text question auto-complete. This is only valid if
+   * single_line_response is true.
    * @return value or {@code null} for none
    */
   public java.util.List<java.lang.String> getOpenTextSuggestions() {
@@ -456,7 +369,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * A list of suggested answers for open text question auto-complete.
+   * A list of suggested answers for open text question auto-complete. This is only valid if
+   * single_line_response is true.
    * @param openTextSuggestions openTextSuggestions or {@code null} for none
    */
   public SurveyQuestion setOpenTextSuggestions(java.util.List<java.lang.String> openTextSuggestions) {
@@ -503,7 +417,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Option to allow multiple line open text responses instead of a single line response.
+   * Option to allow multiple line open text responses instead of a single line response. Note that
+   * we don't show auto-complete suggestions with multiple line responses.
    * @return value or {@code null} for none
    */
   public java.lang.Boolean getSingleLineResponse() {
@@ -511,7 +426,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Option to allow multiple line open text responses instead of a single line response.
+   * Option to allow multiple line open text responses instead of a single line response. Note that
+   * we don't show auto-complete suggestions with multiple line responses.
    * @param singleLineResponse singleLineResponse or {@code null} for none
    */
   public SurveyQuestion setSingleLineResponse(java.lang.Boolean singleLineResponse) {

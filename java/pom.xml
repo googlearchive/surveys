@@ -8,8 +8,8 @@
 
   <groupId>com.google.apis</groupId>
   <artifactId>google-api-services-consumersurveys</artifactId>
-  <version>v2beta-rev20150727-1.20.0</version>
-  <name>Consumer Surveys API v2beta-rev20150727-1.20.0</name>
+  <version>v2-rev20160321-1.22.0-SNAPSHOT</version>
+  <name>Consumer Surveys API v2-rev20160321-1.22.0-SNAPSHOT</name>
   <packaging>jar</packaging>
 
   <inceptionYear>2011</inceptionYear>
@@ -58,11 +58,11 @@
           <links>
             <link>http://docs.oracle.com/javase/7/docs/api</link>
           
-            <link>http://javadoc.google-http-java-client.googlecode.com/hg/1.20.0</link>
+            <link>http://javadoc.google-http-java-client.googlecode.com/hg/1.22.0-SNAPSHOT</link>
           
-            <link>http://javadoc.google-oauth-java-client.googlecode.com/hg/1.20.0</link>
+            <link>http://javadoc.google-oauth-java-client.googlecode.com/hg/1.22.0-SNAPSHOT</link>
           
-            <link>http://javadoc.google-api-java-client.googlecode.com/hg/1.20.0</link>
+            <link>http://javadoc.google-api-java-client.googlecode.com/hg/1.22.0-SNAPSHOT</link>
           </links>
         </configuration>
       </plugin>
@@ -72,29 +72,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20090211</version>
-    </dependency>
-    <dependency>
       <groupId>com.google.api-client</groupId>
       <artifactId>google-api-client</artifactId>
-      <version>1.20.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.http-client</groupId>
-      <artifactId>google-http-client-jackson2</artifactId>
-      <version>1.20.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.oauth-client</groupId>
-      <artifactId>google-oauth-client-jetty</artifactId>
-      <version>1.20.0</version>
-    </dependency>
-    <dependency>
-      <groupId>net.sourceforge.argparse4j</groupId>
-      <artifactId>argparse4j</artifactId>
-      <version>0.6.0</version>
+      <version>1.22.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 

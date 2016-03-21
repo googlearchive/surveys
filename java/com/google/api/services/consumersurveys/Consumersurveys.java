@@ -17,7 +17,7 @@
 package com.google.api.services.consumersurveys;
 
 /**
- * Service definition for Consumersurveys (v2beta).
+ * Service definition for Consumersurveys (v2).
  *
  * <p>
  * API for Google Consumer Surveys.
@@ -63,7 +63,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
    *
    * @since 1.7
    */
-  public static final String DEFAULT_SERVICE_PATH = "consumersurveys/v2beta/";
+  public static final String DEFAULT_SERVICE_PATH = "consumersurveys/v2/";
 
   /**
    * The default encoded base URL of the service. This is determined when the library is generated
@@ -278,102 +278,6 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
    */
   public class Surveys {
 
-    /**
-     * Method for deleting a survey by url id.
-     *
-     * Create a request for the method "surveys.delete".
-     *
-     * This request holds the parameters needed by the consumersurveys server.  After setting any
-     * optional parameters, call the {@link Delete#execute()} method to invoke the remote operation.
-     *
-     * @param surveyUrlId External Url Id for the survey.
-     * @return the request
-     */
-    public Delete delete(java.lang.String surveyUrlId) throws java.io.IOException {
-      Delete result = new Delete(surveyUrlId);
-      initialize(result);
-      return result;
-    }
-
-    public class Delete extends ConsumersurveysRequest<com.google.api.services.consumersurveys.model.SurveysDeleteResponse> {
-
-      private static final String REST_PATH = "surveys/{surveyUrlId}";
-
-      /**
-       * Method for deleting a survey by url id.
-       *
-       * Create a request for the method "surveys.delete".
-       *
-       * This request holds the parameters needed by the the consumersurveys server.  After setting any
-       * optional parameters, call the {@link Delete#execute()} method to invoke the remote operation.
-       * <p> {@link
-       * Delete#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)} must
-       * be called to initialize this instance immediately after invoking the constructor. </p>
-       *
-       * @param surveyUrlId External Url Id for the survey.
-       * @since 1.13
-       */
-      protected Delete(java.lang.String surveyUrlId) {
-        super(Consumersurveys.this, "DELETE", REST_PATH, null, com.google.api.services.consumersurveys.model.SurveysDeleteResponse.class);
-        this.surveyUrlId = com.google.api.client.util.Preconditions.checkNotNull(surveyUrlId, "Required parameter surveyUrlId must be specified.");
-      }
-
-      @Override
-      public Delete setAlt(java.lang.String alt) {
-        return (Delete) super.setAlt(alt);
-      }
-
-      @Override
-      public Delete setFields(java.lang.String fields) {
-        return (Delete) super.setFields(fields);
-      }
-
-      @Override
-      public Delete setKey(java.lang.String key) {
-        return (Delete) super.setKey(key);
-      }
-
-      @Override
-      public Delete setOauthToken(java.lang.String oauthToken) {
-        return (Delete) super.setOauthToken(oauthToken);
-      }
-
-      @Override
-      public Delete setPrettyPrint(java.lang.Boolean prettyPrint) {
-        return (Delete) super.setPrettyPrint(prettyPrint);
-      }
-
-      @Override
-      public Delete setQuotaUser(java.lang.String quotaUser) {
-        return (Delete) super.setQuotaUser(quotaUser);
-      }
-
-      @Override
-      public Delete setUserIp(java.lang.String userIp) {
-        return (Delete) super.setUserIp(userIp);
-      }
-
-      /** External Url Id for the survey. */
-      @com.google.api.client.util.Key
-      private java.lang.String surveyUrlId;
-
-      /** External Url Id for the survey.
-       */
-      public java.lang.String getSurveyUrlId() {
-        return surveyUrlId;
-      }
-
-      /** External Url Id for the survey. */
-      public Delete setSurveyUrlId(java.lang.String surveyUrlId) {
-        this.surveyUrlId = surveyUrlId;
-        return this;
-      }
-
-      @Override
-      public Delete set(String parameterName, Object value) {
-        return (Delete) super.set(parameterName, value);
-      }
-    }
     /**
      * Method for retrieving a survey json specification, state, and cost.
      *
@@ -697,17 +601,18 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
      * This request holds the parameters needed by the consumersurveys server.  After setting any
      * optional parameters, call the {@link Start#execute()} method to invoke the remote operation.
      *
+     * @param resourceId
      * @return the request
      */
-    public Start start() throws java.io.IOException {
-      Start result = new Start();
+    public Start start(java.lang.String resourceId) throws java.io.IOException {
+      Start result = new Start(resourceId);
       initialize(result);
       return result;
     }
 
     public class Start extends ConsumersurveysRequest<com.google.api.services.consumersurveys.model.SurveysStartResponse> {
 
-      private static final String REST_PATH = "surveys/start";
+      private static final String REST_PATH = "surveys/{resourceId}/start";
 
       /**
        * Method for starting a survey.
@@ -720,10 +625,12 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
        * Start#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)} must
        * be called to initialize this instance immediately after invoking the constructor. </p>
        *
+       * @param resourceId
        * @since 1.13
        */
-      protected Start() {
+      protected Start(java.lang.String resourceId) {
         super(Consumersurveys.this, "POST", REST_PATH, null, com.google.api.services.consumersurveys.model.SurveysStartResponse.class);
+        this.resourceId = com.google.api.client.util.Preconditions.checkNotNull(resourceId, "Required parameter resourceId must be specified.");
       }
 
       @Override
@@ -789,17 +696,18 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
      * This request holds the parameters needed by the consumersurveys server.  After setting any
      * optional parameters, call the {@link Stop#execute()} method to invoke the remote operation.
      *
+     * @param resourceId
      * @return the request
      */
-    public Stop stop() throws java.io.IOException {
-      Stop result = new Stop();
+    public Stop stop(java.lang.String resourceId) throws java.io.IOException {
+      Stop result = new Stop(resourceId);
       initialize(result);
       return result;
     }
 
     public class Stop extends ConsumersurveysRequest<com.google.api.services.consumersurveys.model.SurveysStopResponse> {
 
-      private static final String REST_PATH = "surveys/stop";
+      private static final String REST_PATH = "surveys/{resourceId}/stop";
 
       /**
        * Method for stopping a survey.
@@ -811,10 +719,12 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
        * {@link Stop#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)}
        * must be called to initialize this instance immediately after invoking the constructor. </p>
        *
+       * @param resourceId
        * @since 1.13
        */
-      protected Stop() {
+      protected Stop(java.lang.String resourceId) {
         super(Consumersurveys.this, "POST", REST_PATH, null, com.google.api.services.consumersurveys.model.SurveysStopResponse.class);
+        this.resourceId = com.google.api.client.util.Preconditions.checkNotNull(resourceId, "Required parameter resourceId must be specified.");
       }
 
       @Override
