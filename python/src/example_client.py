@@ -64,7 +64,7 @@ from oauth2client import tools
 from oauth2client import file as oauth_file
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import OAuth2Credentials
-from oauth2client.client import SignedJwtAssertionCredentials
+from oauth2client.service_account import ServiceAccountCredentials
 
 _SERVICE_ACCOUNT_SECRETS = 'robot_account_secret.json'
 _OAUTH_CLIENT_SECRETS = 'client_secrets.json'
@@ -335,11 +335,14 @@ def setup_auth(args):
     if args.service_account:
         # Service accounts will follow the following authenication.
         client_email = args.service_account
-        with open(args.service_account_secrets_file) as f:
-            private_key = json.loads(f.read())['private_key']
-        credentials = client.SignedJwtAssertionCredentials(client_email,
-                                                           private_key,
-                                                           scope=SCOPES)
+	secret_file = args.service_account_secrets_file
+	if secret_file.endswith('json'):
+	    credentials = ServiceAccountCredentials.from_json_keyfile_name(
+		secret_file, SCOPES)
+	elif secret_file.endswith('p12'):
+	    credentials = ServiceAccountCredentials.from_p12_keyfile(
+	        client_email, secret_file, SCOPES)
+
     else:
         flow = flow_from_clientsecrets(args.client_secrets_file, scope=SCOPES)
         storage = oauth_file.Storage(OAUTH2_STORAGE)
