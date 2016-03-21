@@ -166,7 +166,7 @@ def main():
     # Load the local copy of the discovery document
     f = file(os.path.join(
         os.path.dirname(__file__),
-        "consumersurveys_v2beta_discovery.json"), "r")
+        "consumersurveys_v2_discovery.json"), "r")
     discovery_file = f.read()
     f.close()
 
