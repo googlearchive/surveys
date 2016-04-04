@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Apis.Consumersurveys.v2beta", "Google.Apis.Consumersurveys.v2beta\Google.Apis.Consumersurveys.v2beta.csproj", "{6745AAF1-A1B5-4C28-8B33-195FA88BCDAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Apis.Consumersurveys.v2", "Google.Apis.Consumersurveys.v2\Google.Apis.Consumersurveys.v2.csproj", "{6745AAF1-A1B5-4C28-8B33-195FA88BCDAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerSurveysSample", "ConsumerSurveysSample\ConsumerSurveysSample.csproj", "{9154CEF5-779B-4F4F-A378-2240B0DF169E}"
 EndProject
