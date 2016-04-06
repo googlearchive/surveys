@@ -30,15 +30,6 @@ package com.google.api.services.consumersurveys.model;
 public final class Survey extends com.google.api.client.json.GenericJson {
 
   /**
-   * Optional ideal number of days that the survey should complete in. Fractional values are
-   * supported. Note that the survey may complete in a shorter or longer period of time than
-   * requested, but it will not complete in a significantly shorter period than requested.
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private java.lang.Float approximateDaysToComplete;
-
-  /**
    * Targeting criteria message containing demographic information
    * The value may be {@code null}.
    */
@@ -68,13 +59,6 @@ public final class Survey extends com.google.api.client.json.GenericJson {
   private java.lang.String description;
 
   /**
-   * JSON string defining the survey specification and definitions.
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private java.lang.String jsonSpec;
-
-  /**
    * List of email addresses for survey owners. Must contain at least the address of the user making
    * the API call.
    * The value may be {@code null}.
@@ -88,13 +72,6 @@ public final class Survey extends com.google.api.client.json.GenericJson {
    */
   @com.google.api.client.util.Key
   private java.util.List<SurveyQuestion> questions;
-
-  /**
-   * Survey frequency for recurring surveys that are run on a repeated basis.
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private java.lang.String recurringFrequency;
 
   /**
    * State that the survey is in. Can be modified to start, stop, or pause survey.
@@ -123,27 +100,6 @@ public final class Survey extends com.google.api.client.json.GenericJson {
    */
   @com.google.api.client.util.Key
   private java.lang.Integer wantedResponseCount;
-
-  /**
-   * Optional ideal number of days that the survey should complete in. Fractional values are
-   * supported. Note that the survey may complete in a shorter or longer period of time than
-   * requested, but it will not complete in a significantly shorter period than requested.
-   * @return value or {@code null} for none
-   */
-  public java.lang.Float getApproximateDaysToComplete() {
-    return approximateDaysToComplete;
-  }
-
-  /**
-   * Optional ideal number of days that the survey should complete in. Fractional values are
-   * supported. Note that the survey may complete in a shorter or longer period of time than
-   * requested, but it will not complete in a significantly shorter period than requested.
-   * @param approximateDaysToComplete approximateDaysToComplete or {@code null} for none
-   */
-  public Survey setApproximateDaysToComplete(java.lang.Float approximateDaysToComplete) {
-    this.approximateDaysToComplete = approximateDaysToComplete;
-    return this;
-  }
 
   /**
    * Targeting criteria message containing demographic information
@@ -246,23 +202,6 @@ public final class Survey extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * JSON string defining the survey specification and definitions.
-   * @return value or {@code null} for none
-   */
-  public java.lang.String getJsonSpec() {
-    return jsonSpec;
-  }
-
-  /**
-   * JSON string defining the survey specification and definitions.
-   * @param jsonSpec jsonSpec or {@code null} for none
-   */
-  public Survey setJsonSpec(java.lang.String jsonSpec) {
-    this.jsonSpec = jsonSpec;
-    return this;
-  }
-
-  /**
    * List of email addresses for survey owners. Must contain at least the address of the user making
    * the API call.
    * @return value or {@code null} for none
@@ -295,23 +234,6 @@ public final class Survey extends com.google.api.client.json.GenericJson {
    */
   public Survey setQuestions(java.util.List<SurveyQuestion> questions) {
     this.questions = questions;
-    return this;
-  }
-
-  /**
-   * Survey frequency for recurring surveys that are run on a repeated basis.
-   * @return value or {@code null} for none
-   */
-  public java.lang.String getRecurringFrequency() {
-    return recurringFrequency;
-  }
-
-  /**
-   * Survey frequency for recurring surveys that are run on a repeated basis.
-   * @param recurringFrequency recurringFrequency or {@code null} for none
-   */
-  public Survey setRecurringFrequency(java.lang.String recurringFrequency) {
-    this.recurringFrequency = recurringFrequency;
     return this;
   }
 
