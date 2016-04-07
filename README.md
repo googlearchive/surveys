@@ -1,5 +1,3 @@
-Note: The Google Consumer Surveys API is currently only available to our Enterprise customers and a small set of other trusted testers. If you think you'd like to test it out and have a valid business reason to do so, then fill out the form @ https://goo.gl/hwxHHm and we'll be in touch if it makes sense.
-
 Example clients of the Google Consumer Surveys API.
 
 # Contents
