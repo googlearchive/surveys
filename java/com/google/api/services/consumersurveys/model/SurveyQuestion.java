@@ -30,8 +30,8 @@ package com.google.api.services.consumersurveys.model;
 public final class SurveyQuestion extends com.google.api.client.json.GenericJson {
 
   /**
-   * The randomization option for multiple choice and multi-select questions. If not specified, the
-   * API defaults to randomize.
+   * The randomization option for multiple choice and multi-select questions. If not specified, this
+   * option defaults to randomize.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -45,9 +45,9 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.util.List<java.lang.String> answers;
 
   /**
-   * Option to allow open-ended text box for multi and multi-select question types. This can be used
-   * with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and MULTIPLE_ANSWERS_WITH_IMAGE
-   * question types.
+   * Option to allow open-ended text box for Single Answer and Multiple Answer question types. This
+   * can be used with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and
+   * MULTIPLE_ANSWERS_WITH_IMAGE question types.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -122,9 +122,9 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   private java.lang.String question;
 
   /**
-   * Used by the rating scale with text question type, this text goes along with the "question"
-   * field when presented to the respondent and is the text a 'rating with text' question asks a
-   * user to rate.
+   * Used by the Rating Scale with Text question type. This text goes along with the question field
+   * that is presented to the respondent, and is the actual text that the respondent is asked to
+   * rate.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -148,36 +148,29 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
 
   /**
    * Required field defining the question type. For details about configuring different type of
-   * questions, consult the  question configuration guide.
+   * questions, consult the question configuration guide.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
   private java.lang.String type;
 
   /**
-   * Optional unit of measurement for display (ie. hours, people, miles).
+   * Optional unit of measurement for display (for example: hours, people, miles).
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
   private java.lang.String unitOfMeasurementLabel;
 
   /**
-   * Where the unit_of_measurement string should appear in relation to the input field.
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private java.lang.String unitsPosition;
-
-  /**
-   * The youtube video id to be show in video questions.
+   * The YouTube video ID to be show in video questions.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
   private java.lang.String videoId;
 
   /**
-   * The randomization option for multiple choice and multi-select questions. If not specified, the
-   * API defaults to randomize.
+   * The randomization option for multiple choice and multi-select questions. If not specified, this
+   * option defaults to randomize.
    * @return value or {@code null} for none
    */
   public java.lang.String getAnswerOrder() {
@@ -185,8 +178,8 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * The randomization option for multiple choice and multi-select questions. If not specified, the
-   * API defaults to randomize.
+   * The randomization option for multiple choice and multi-select questions. If not specified, this
+   * option defaults to randomize.
    * @param answerOrder answerOrder or {@code null} for none
    */
   public SurveyQuestion setAnswerOrder(java.lang.String answerOrder) {
@@ -212,9 +205,9 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Option to allow open-ended text box for multi and multi-select question types. This can be used
-   * with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and MULTIPLE_ANSWERS_WITH_IMAGE
-   * question types.
+   * Option to allow open-ended text box for Single Answer and Multiple Answer question types. This
+   * can be used with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and
+   * MULTIPLE_ANSWERS_WITH_IMAGE question types.
    * @return value or {@code null} for none
    */
   public java.lang.Boolean getHasOther() {
@@ -222,9 +215,9 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Option to allow open-ended text box for multi and multi-select question types. This can be used
-   * with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and MULTIPLE_ANSWERS_WITH_IMAGE
-   * question types.
+   * Option to allow open-ended text box for Single Answer and Multiple Answer question types. This
+   * can be used with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and
+   * MULTIPLE_ANSWERS_WITH_IMAGE question types.
    * @param hasOther hasOther or {@code null} for none
    */
   public SurveyQuestion setHasOther(java.lang.Boolean hasOther) {
@@ -396,9 +389,9 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Used by the rating scale with text question type, this text goes along with the "question"
-   * field when presented to the respondent and is the text a 'rating with text' question asks a
-   * user to rate.
+   * Used by the Rating Scale with Text question type. This text goes along with the question field
+   * that is presented to the respondent, and is the actual text that the respondent is asked to
+   * rate.
    * @return value or {@code null} for none
    */
   public java.lang.String getSentimentText() {
@@ -406,9 +399,9 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Used by the rating scale with text question type, this text goes along with the "question"
-   * field when presented to the respondent and is the text a 'rating with text' question asks a
-   * user to rate.
+   * Used by the Rating Scale with Text question type. This text goes along with the question field
+   * that is presented to the respondent, and is the actual text that the respondent is asked to
+   * rate.
    * @param sentimentText sentimentText or {@code null} for none
    */
   public SurveyQuestion setSentimentText(java.lang.String sentimentText) {
@@ -456,7 +449,7 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
 
   /**
    * Required field defining the question type. For details about configuring different type of
-   * questions, consult the  question configuration guide.
+   * questions, consult the question configuration guide.
    * @return value or {@code null} for none
    */
   public java.lang.String getType() {
@@ -465,7 +458,7 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
 
   /**
    * Required field defining the question type. For details about configuring different type of
-   * questions, consult the  question configuration guide.
+   * questions, consult the question configuration guide.
    * @param type type or {@code null} for none
    */
   public SurveyQuestion setType(java.lang.String type) {
@@ -474,7 +467,7 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Optional unit of measurement for display (ie. hours, people, miles).
+   * Optional unit of measurement for display (for example: hours, people, miles).
    * @return value or {@code null} for none
    */
   public java.lang.String getUnitOfMeasurementLabel() {
@@ -482,7 +475,7 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Optional unit of measurement for display (ie. hours, people, miles).
+   * Optional unit of measurement for display (for example: hours, people, miles).
    * @param unitOfMeasurementLabel unitOfMeasurementLabel or {@code null} for none
    */
   public SurveyQuestion setUnitOfMeasurementLabel(java.lang.String unitOfMeasurementLabel) {
@@ -491,24 +484,7 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Where the unit_of_measurement string should appear in relation to the input field.
-   * @return value or {@code null} for none
-   */
-  public java.lang.String getUnitsPosition() {
-    return unitsPosition;
-  }
-
-  /**
-   * Where the unit_of_measurement string should appear in relation to the input field.
-   * @param unitsPosition unitsPosition or {@code null} for none
-   */
-  public SurveyQuestion setUnitsPosition(java.lang.String unitsPosition) {
-    this.unitsPosition = unitsPosition;
-    return this;
-  }
-
-  /**
-   * The youtube video id to be show in video questions.
+   * The YouTube video ID to be show in video questions.
    * @return value or {@code null} for none
    */
   public java.lang.String getVideoId() {
@@ -516,7 +492,7 @@ public final class SurveyQuestion extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * The youtube video id to be show in video questions.
+   * The YouTube video ID to be show in video questions.
    * @param videoId videoId or {@code null} for none
    */
   public SurveyQuestion setVideoId(java.lang.String videoId) {

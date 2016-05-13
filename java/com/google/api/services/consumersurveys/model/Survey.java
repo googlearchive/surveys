@@ -17,7 +17,7 @@
 package com.google.api.services.consumersurveys.model;
 
 /**
- * Message defining the Survey collections for the REST API.
+ * Representation of an individual survey object.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the Consumer Surveys API. For a detailed explanation see:
@@ -30,7 +30,7 @@ package com.google.api.services.consumersurveys.model;
 public final class Survey extends com.google.api.client.json.GenericJson {
 
   /**
-   * Targeting criteria message containing demographic information
+   * Targeting-criteria message containing demographic information
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -102,7 +102,7 @@ public final class Survey extends com.google.api.client.json.GenericJson {
   private java.lang.Integer wantedResponseCount;
 
   /**
-   * Targeting criteria message containing demographic information
+   * Targeting-criteria message containing demographic information
    * @return value or {@code null} for none
    */
   public SurveyAudience getAudience() {
@@ -110,7 +110,7 @@ public final class Survey extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * Targeting criteria message containing demographic information
+   * Targeting-criteria message containing demographic information
    * @param audience audience or {@code null} for none
    */
   public Survey setAudience(SurveyAudience audience) {

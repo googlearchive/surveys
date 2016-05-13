@@ -39,11 +39,22 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
 
   /**
    * Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2
-   * character language codes, e.g. 'US'
+   * character language codes. For instance, 'US' for the United States, and 'GB' for the United
+   * Kingdom.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
   private java.lang.String country;
+
+  /**
+   * Country subdivision (states/provinces/etc) that surveys should be targeted to. For all
+   * countries except GB, ISO-3166-2 subdivision code is required (eg. 'US-OH' for Ohio, United
+   * States). For GB, NUTS 1 statistical region codes for the United Kingdom is required (eg. 'UK-
+   * UKC' for North East England).
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.String countrySubdivision;
 
   /**
    * Optional gender to target.
@@ -53,14 +64,23 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
   private java.lang.String gender;
 
   /**
-   * Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
-   * users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all
-   * languages will be used for targeting users but the survey content (which is displayed) must
-   * match the first language listed. Accepts standard BCP47 language codes. See specification.
+   * Language code that surveys should be targeted to. For instance, 'en-US'. Surveys may target
+   * bilingual users by specifying a list of language codes (for example, 'de' and 'en-US'). In that
+   * case, all languages will be used for targeting users but the survey content (which is
+   * displayed) must match the first language listed. Accepts standard BCP47 language codes. See
+   * specification.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
   private java.util.List<java.lang.String> languages;
+
+  /**
+   * Key for predefined panel that causes survey to be sent to a predefined set of Opinion Rewards
+   * App users. PopulationSource must be set to ANDROID_APP_PANEL to use this field.
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.String mobileAppPanelId;
 
   /**
    * Online population source where the respondents are sampled from.
@@ -90,7 +110,8 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
 
   /**
    * Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2
-   * character language codes, e.g. 'US'
+   * character language codes. For instance, 'US' for the United States, and 'GB' for the United
+   * Kingdom.
    * @return value or {@code null} for none
    */
   public java.lang.String getCountry() {
@@ -99,11 +120,35 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
 
   /**
    * Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2
-   * character language codes, e.g. 'US'
+   * character language codes. For instance, 'US' for the United States, and 'GB' for the United
+   * Kingdom.
    * @param country country or {@code null} for none
    */
   public SurveyAudience setCountry(java.lang.String country) {
     this.country = country;
+    return this;
+  }
+
+  /**
+   * Country subdivision (states/provinces/etc) that surveys should be targeted to. For all
+   * countries except GB, ISO-3166-2 subdivision code is required (eg. 'US-OH' for Ohio, United
+   * States). For GB, NUTS 1 statistical region codes for the United Kingdom is required (eg. 'UK-
+   * UKC' for North East England).
+   * @return value or {@code null} for none
+   */
+  public java.lang.String getCountrySubdivision() {
+    return countrySubdivision;
+  }
+
+  /**
+   * Country subdivision (states/provinces/etc) that surveys should be targeted to. For all
+   * countries except GB, ISO-3166-2 subdivision code is required (eg. 'US-OH' for Ohio, United
+   * States). For GB, NUTS 1 statistical region codes for the United Kingdom is required (eg. 'UK-
+   * UKC' for North East England).
+   * @param countrySubdivision countrySubdivision or {@code null} for none
+   */
+  public SurveyAudience setCountrySubdivision(java.lang.String countrySubdivision) {
+    this.countrySubdivision = countrySubdivision;
     return this;
   }
 
@@ -125,10 +170,11 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
-   * users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all
-   * languages will be used for targeting users but the survey content (which is displayed) must
-   * match the first language listed. Accepts standard BCP47 language codes. See specification.
+   * Language code that surveys should be targeted to. For instance, 'en-US'. Surveys may target
+   * bilingual users by specifying a list of language codes (for example, 'de' and 'en-US'). In that
+   * case, all languages will be used for targeting users but the survey content (which is
+   * displayed) must match the first language listed. Accepts standard BCP47 language codes. See
+   * specification.
    * @return value or {@code null} for none
    */
   public java.util.List<java.lang.String> getLanguages() {
@@ -136,14 +182,34 @@ public final class SurveyAudience extends com.google.api.client.json.GenericJson
   }
 
   /**
-   * Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual
-   * users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all
-   * languages will be used for targeting users but the survey content (which is displayed) must
-   * match the first language listed. Accepts standard BCP47 language codes. See specification.
+   * Language code that surveys should be targeted to. For instance, 'en-US'. Surveys may target
+   * bilingual users by specifying a list of language codes (for example, 'de' and 'en-US'). In that
+   * case, all languages will be used for targeting users but the survey content (which is
+   * displayed) must match the first language listed. Accepts standard BCP47 language codes. See
+   * specification.
    * @param languages languages or {@code null} for none
    */
   public SurveyAudience setLanguages(java.util.List<java.lang.String> languages) {
     this.languages = languages;
+    return this;
+  }
+
+  /**
+   * Key for predefined panel that causes survey to be sent to a predefined set of Opinion Rewards
+   * App users. PopulationSource must be set to ANDROID_APP_PANEL to use this field.
+   * @return value or {@code null} for none
+   */
+  public java.lang.String getMobileAppPanelId() {
+    return mobileAppPanelId;
+  }
+
+  /**
+   * Key for predefined panel that causes survey to be sent to a predefined set of Opinion Rewards
+   * App users. PopulationSource must be set to ANDROID_APP_PANEL to use this field.
+   * @param mobileAppPanelId mobileAppPanelId or {@code null} for none
+   */
+  public SurveyAudience setMobileAppPanelId(java.lang.String mobileAppPanelId) {
+    this.mobileAppPanelId = mobileAppPanelId;
     return this;
   }
 
