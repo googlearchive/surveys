@@ -17,7 +17,7 @@
 package com.google.api.services.consumersurveys.model;
 
 /**
- * Reference to the current results for a given survey.
+ * Model definition for PageInfo.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the Consumer Surveys API. For a detailed explanation see:
@@ -27,64 +27,79 @@ package com.google.api.services.consumersurveys.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class SurveyResults extends com.google.api.client.json.GenericJson {
+public final class PageInfo extends com.google.api.client.json.GenericJson {
 
   /**
-   * Human readable string describing the status of the request.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String status;
+  private java.lang.Integer resultPerPage;
 
   /**
-   * External survey ID as viewable by survey owners in the editor view.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String surveyUrlId;
+  private java.lang.Integer startIndex;
 
   /**
-   * Human readable string describing the status of the request.
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.Integer totalResults;
+
+  /**
    * @return value or {@code null} for none
    */
-  public java.lang.String getStatus() {
-    return status;
+  public java.lang.Integer getResultPerPage() {
+    return resultPerPage;
   }
 
   /**
-   * Human readable string describing the status of the request.
-   * @param status status or {@code null} for none
+   * @param resultPerPage resultPerPage or {@code null} for none
    */
-  public SurveyResults setStatus(java.lang.String status) {
-    this.status = status;
+  public PageInfo setResultPerPage(java.lang.Integer resultPerPage) {
+    this.resultPerPage = resultPerPage;
     return this;
   }
 
   /**
-   * External survey ID as viewable by survey owners in the editor view.
    * @return value or {@code null} for none
    */
-  public java.lang.String getSurveyUrlId() {
-    return surveyUrlId;
+  public java.lang.Integer getStartIndex() {
+    return startIndex;
   }
 
   /**
-   * External survey ID as viewable by survey owners in the editor view.
-   * @param surveyUrlId surveyUrlId or {@code null} for none
+   * @param startIndex startIndex or {@code null} for none
    */
-  public SurveyResults setSurveyUrlId(java.lang.String surveyUrlId) {
-    this.surveyUrlId = surveyUrlId;
+  public PageInfo setStartIndex(java.lang.Integer startIndex) {
+    this.startIndex = startIndex;
+    return this;
+  }
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public java.lang.Integer getTotalResults() {
+    return totalResults;
+  }
+
+  /**
+   * @param totalResults totalResults or {@code null} for none
+   */
+  public PageInfo setTotalResults(java.lang.Integer totalResults) {
+    this.totalResults = totalResults;
     return this;
   }
 
   @Override
-  public SurveyResults set(String fieldName, Object value) {
-    return (SurveyResults) super.set(fieldName, value);
+  public PageInfo set(String fieldName, Object value) {
+    return (PageInfo) super.set(fieldName, value);
   }
 
   @Override
-  public SurveyResults clone() {
-    return (SurveyResults) super.clone();
+  public PageInfo clone() {
+    return (PageInfo) super.clone();
   }
 
 }

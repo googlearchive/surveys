@@ -17,7 +17,7 @@
 package com.google.api.services.consumersurveys.model;
 
 /**
- * Reference to the current results for a given survey.
+ * Model definition for SurveysStartResponse.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the Consumer Surveys API. For a detailed explanation see:
@@ -27,64 +27,67 @@ package com.google.api.services.consumersurveys.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class SurveyResults extends com.google.api.client.json.GenericJson {
+public final class SurveysStartResponse extends com.google.api.client.json.GenericJson {
 
   /**
-   * Human readable string describing the status of the request.
+   * Unique request ID used for logging and debugging. Please include in any error reporting or
+   * troubleshooting requests.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String status;
+  private java.lang.String requestId;
 
   /**
-   * External survey ID as viewable by survey owners in the editor view.
+   * Survey object containing the specification of the started Survey.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String surveyUrlId;
+  private Survey resource;
 
   /**
-   * Human readable string describing the status of the request.
+   * Unique request ID used for logging and debugging. Please include in any error reporting or
+   * troubleshooting requests.
    * @return value or {@code null} for none
    */
-  public java.lang.String getStatus() {
-    return status;
+  public java.lang.String getRequestId() {
+    return requestId;
   }
 
   /**
-   * Human readable string describing the status of the request.
-   * @param status status or {@code null} for none
+   * Unique request ID used for logging and debugging. Please include in any error reporting or
+   * troubleshooting requests.
+   * @param requestId requestId or {@code null} for none
    */
-  public SurveyResults setStatus(java.lang.String status) {
-    this.status = status;
+  public SurveysStartResponse setRequestId(java.lang.String requestId) {
+    this.requestId = requestId;
     return this;
   }
 
   /**
-   * External survey ID as viewable by survey owners in the editor view.
+   * Survey object containing the specification of the started Survey.
    * @return value or {@code null} for none
    */
-  public java.lang.String getSurveyUrlId() {
-    return surveyUrlId;
+  public Survey getResource() {
+    return resource;
   }
 
   /**
-   * External survey ID as viewable by survey owners in the editor view.
-   * @param surveyUrlId surveyUrlId or {@code null} for none
+   * Survey object containing the specification of the started Survey.
+   * @param resource resource or {@code null} for none
    */
-  public SurveyResults setSurveyUrlId(java.lang.String surveyUrlId) {
-    this.surveyUrlId = surveyUrlId;
+  public SurveysStartResponse setResource(Survey resource) {
+    this.resource = resource;
     return this;
   }
 
   @Override
-  public SurveyResults set(String fieldName, Object value) {
-    return (SurveyResults) super.set(fieldName, value);
+  public SurveysStartResponse set(String fieldName, Object value) {
+    return (SurveysStartResponse) super.set(fieldName, value);
   }
 
   @Override
-  public SurveyResults clone() {
-    return (SurveyResults) super.clone();
+  public SurveysStartResponse clone() {
+    return (SurveysStartResponse) super.clone();
   }
 
 }

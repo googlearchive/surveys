@@ -36,7 +36,7 @@ public final class SurveysListResponse extends com.google.api.client.json.Generi
   private PageInfo pageInfo;
 
   /**
-   * Unique request id used for logging and debugging. Please include in any error reporting or
+   * Unique request ID used for logging and debugging. Please include in any error reporting or
    * troubleshooting requests.
    * The value may be {@code null}.
    */
@@ -44,7 +44,7 @@ public final class SurveysListResponse extends com.google.api.client.json.Generi
   private java.lang.String requestId;
 
   /**
-   * Survey object containing the specifications.
+   * An individual survey resource.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -78,7 +78,7 @@ public final class SurveysListResponse extends com.google.api.client.json.Generi
   }
 
   /**
-   * Unique request id used for logging and debugging. Please include in any error reporting or
+   * Unique request ID used for logging and debugging. Please include in any error reporting or
    * troubleshooting requests.
    * @return value or {@code null} for none
    */
@@ -87,7 +87,7 @@ public final class SurveysListResponse extends com.google.api.client.json.Generi
   }
 
   /**
-   * Unique request id used for logging and debugging. Please include in any error reporting or
+   * Unique request ID used for logging and debugging. Please include in any error reporting or
    * troubleshooting requests.
    * @param requestId requestId or {@code null} for none
    */
@@ -97,7 +97,7 @@ public final class SurveysListResponse extends com.google.api.client.json.Generi
   }
 
   /**
-   * Survey object containing the specifications.
+   * An individual survey resource.
    * @return value or {@code null} for none
    */
   public java.util.List<Survey> getResources() {
@@ -105,7 +105,7 @@ public final class SurveysListResponse extends com.google.api.client.json.Generi
   }
 
   /**
-   * Survey object containing the specifications.
+   * An individual survey resource.
    * @param resources resources or {@code null} for none
    */
   public SurveysListResponse setResources(java.util.List<Survey> resources) {

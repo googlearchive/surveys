@@ -17,7 +17,7 @@
 package com.google.api.services.consumersurveys.model;
 
 /**
- * Reference to the current results for a given survey.
+ * Model definition for TokenPagination.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the Consumer Surveys API. For a detailed explanation see:
@@ -27,64 +27,58 @@ package com.google.api.services.consumersurveys.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class SurveyResults extends com.google.api.client.json.GenericJson {
+public final class TokenPagination extends com.google.api.client.json.GenericJson {
 
   /**
-   * Human readable string describing the status of the request.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String status;
+  private java.lang.String nextPageToken;
 
   /**
-   * External survey ID as viewable by survey owners in the editor view.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String surveyUrlId;
+  private java.lang.String previousPageToken;
 
   /**
-   * Human readable string describing the status of the request.
    * @return value or {@code null} for none
    */
-  public java.lang.String getStatus() {
-    return status;
+  public java.lang.String getNextPageToken() {
+    return nextPageToken;
   }
 
   /**
-   * Human readable string describing the status of the request.
-   * @param status status or {@code null} for none
+   * @param nextPageToken nextPageToken or {@code null} for none
    */
-  public SurveyResults setStatus(java.lang.String status) {
-    this.status = status;
+  public TokenPagination setNextPageToken(java.lang.String nextPageToken) {
+    this.nextPageToken = nextPageToken;
     return this;
   }
 
   /**
-   * External survey ID as viewable by survey owners in the editor view.
    * @return value or {@code null} for none
    */
-  public java.lang.String getSurveyUrlId() {
-    return surveyUrlId;
+  public java.lang.String getPreviousPageToken() {
+    return previousPageToken;
   }
 
   /**
-   * External survey ID as viewable by survey owners in the editor view.
-   * @param surveyUrlId surveyUrlId or {@code null} for none
+   * @param previousPageToken previousPageToken or {@code null} for none
    */
-  public SurveyResults setSurveyUrlId(java.lang.String surveyUrlId) {
-    this.surveyUrlId = surveyUrlId;
+  public TokenPagination setPreviousPageToken(java.lang.String previousPageToken) {
+    this.previousPageToken = previousPageToken;
     return this;
   }
 
   @Override
-  public SurveyResults set(String fieldName, Object value) {
-    return (SurveyResults) super.set(fieldName, value);
+  public TokenPagination set(String fieldName, Object value) {
+    return (TokenPagination) super.set(fieldName, value);
   }
 
   @Override
-  public SurveyResults clone() {
-    return (SurveyResults) super.clone();
+  public TokenPagination clone() {
+    return (TokenPagination) super.clone();
   }
 
 }

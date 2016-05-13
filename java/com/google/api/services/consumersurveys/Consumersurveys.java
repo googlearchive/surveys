@@ -20,7 +20,7 @@ package com.google.api.services.consumersurveys;
  * Service definition for Consumersurveys (v2).
  *
  * <p>
- * API for Google Consumer Surveys.
+ * Creates and conducts surveys, lists the surveys that an authenticated user owns, and retrieves survey results and information about specified surveys.
  * </p>
  *
  * <p>
@@ -135,14 +135,15 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
   public class Results {
 
     /**
-     * Method for retrieving survey results.
+     * Retrieves any survey results that have been produced so far. Results are formatted as an Excel
+     * file.
      *
      * Create a request for the method "results.get".
      *
      * This request holds the parameters needed by the consumersurveys server.  After setting any
      * optional parameters, call the {@link Get#execute()} method to invoke the remote operation.
      *
-     * @param surveyUrlId External Url Id for the survey.
+     * @param surveyUrlId External URL ID for the survey.
      * @return the request
      */
     public Get get(java.lang.String surveyUrlId) throws java.io.IOException {
@@ -156,7 +157,8 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       private static final String REST_PATH = "surveys/{surveyUrlId}/results";
 
       /**
-       * Method for retrieving survey results.
+       * Retrieves any survey results that have been produced so far. Results are formatted as an Excel
+       * file.
        *
        * Create a request for the method "results.get".
        *
@@ -165,7 +167,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
        * {@link Get#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)}
        * must be called to initialize this instance immediately after invoking the constructor. </p>
        *
-       * @param surveyUrlId External Url Id for the survey.
+       * @param surveyUrlId External URL ID for the survey.
        * @since 1.13
        */
       protected Get(java.lang.String surveyUrlId) {
@@ -234,17 +236,17 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
         return (Get) super.setUserIp(userIp);
       }
 
-      /** External Url Id for the survey. */
+      /** External URL ID for the survey. */
       @com.google.api.client.util.Key
       private java.lang.String surveyUrlId;
 
-      /** External Url Id for the survey.
+      /** External URL ID for the survey.
        */
       public java.lang.String getSurveyUrlId() {
         return surveyUrlId;
       }
 
-      /** External Url Id for the survey. */
+      /** External URL ID for the survey. */
       public Get setSurveyUrlId(java.lang.String surveyUrlId) {
         this.surveyUrlId = surveyUrlId;
         return this;
@@ -279,14 +281,14 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
   public class Surveys {
 
     /**
-     * Method for retrieving a survey json specification, state, and cost.
+     * Retrieves information about the specified survey.
      *
      * Create a request for the method "surveys.get".
      *
      * This request holds the parameters needed by the consumersurveys server.  After setting any
      * optional parameters, call the {@link Get#execute()} method to invoke the remote operation.
      *
-     * @param surveyUrlId External Url Id for the survey.
+     * @param surveyUrlId External URL ID for the survey.
      * @return the request
      */
     public Get get(java.lang.String surveyUrlId) throws java.io.IOException {
@@ -300,7 +302,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       private static final String REST_PATH = "surveys/{surveyUrlId}";
 
       /**
-       * Method for retrieving a survey json specification, state, and cost.
+       * Retrieves information about the specified survey.
        *
        * Create a request for the method "surveys.get".
        *
@@ -309,7 +311,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
        * {@link Get#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)}
        * must be called to initialize this instance immediately after invoking the constructor. </p>
        *
-       * @param surveyUrlId External Url Id for the survey.
+       * @param surveyUrlId External URL ID for the survey.
        * @since 1.13
        */
       protected Get(java.lang.String surveyUrlId) {
@@ -362,17 +364,17 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
         return (Get) super.setUserIp(userIp);
       }
 
-      /** External Url Id for the survey. */
+      /** External URL ID for the survey. */
       @com.google.api.client.util.Key
       private java.lang.String surveyUrlId;
 
-      /** External Url Id for the survey.
+      /** External URL ID for the survey.
        */
       public java.lang.String getSurveyUrlId() {
         return surveyUrlId;
       }
 
-      /** External Url Id for the survey. */
+      /** External URL ID for the survey. */
       public Get setSurveyUrlId(java.lang.String surveyUrlId) {
         this.surveyUrlId = surveyUrlId;
         return this;
@@ -384,7 +386,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       }
     }
     /**
-     * Method for creating a survey from a json specification.
+     * Creates a survey.
      *
      * Create a request for the method "surveys.insert".
      *
@@ -405,7 +407,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       private static final String REST_PATH = "surveys";
 
       /**
-       * Method for creating a survey from a json specification.
+       * Creates a survey.
        *
        * Create a request for the method "surveys.insert".
        *
@@ -463,7 +465,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       }
     }
     /**
-     * Method for listing the surveys owned by the caller.
+     * Lists the surveys owned by the authenticated user.
      *
      * Create a request for the method "surveys.list".
      *
@@ -483,7 +485,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       private static final String REST_PATH = "surveys";
 
       /**
-       * Method for listing the surveys owned by the caller.
+       * Lists the surveys owned by the authenticated user.
        *
        * Create a request for the method "surveys.list".
        *
@@ -594,7 +596,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       }
     }
     /**
-     * Method for starting a survey.
+     * Begins running a survey.
      *
      * Create a request for the method "surveys.start".
      *
@@ -615,7 +617,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       private static final String REST_PATH = "surveys/{resourceId}/start";
 
       /**
-       * Method for starting a survey.
+       * Begins running a survey.
        *
        * Create a request for the method "surveys.start".
        *
@@ -689,7 +691,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       }
     }
     /**
-     * Method for stopping a survey.
+     * Stops a running survey.
      *
      * Create a request for the method "surveys.stop".
      *
@@ -710,7 +712,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       private static final String REST_PATH = "surveys/{resourceId}/stop";
 
       /**
-       * Method for stopping a survey.
+       * Stops a running survey.
        *
        * Create a request for the method "surveys.stop".
        *
@@ -783,14 +785,14 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       }
     }
     /**
-     * Method for updating a survey.
+     * Updates a survey. Currently the only property that can be updated is the owners property.
      *
      * Create a request for the method "surveys.update".
      *
      * This request holds the parameters needed by the consumersurveys server.  After setting any
      * optional parameters, call the {@link Update#execute()} method to invoke the remote operation.
      *
-     * @param surveyUrlId External Url Id for the survey.
+     * @param surveyUrlId External URL ID for the survey.
      * @param content the {@link com.google.api.services.consumersurveys.model.Survey}
      * @return the request
      */
@@ -805,7 +807,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
       private static final String REST_PATH = "surveys/{surveyUrlId}";
 
       /**
-       * Method for updating a survey.
+       * Updates a survey. Currently the only property that can be updated is the owners property.
        *
        * Create a request for the method "surveys.update".
        *
@@ -815,7 +817,7 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
        * Update#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)} must
        * be called to initialize this instance immediately after invoking the constructor. </p>
        *
-       * @param surveyUrlId External Url Id for the survey.
+       * @param surveyUrlId External URL ID for the survey.
        * @param content the {@link com.google.api.services.consumersurveys.model.Survey}
        * @since 1.13
        */
@@ -859,17 +861,17 @@ public class Consumersurveys extends com.google.api.client.googleapis.services.j
         return (Update) super.setUserIp(userIp);
       }
 
-      /** External Url Id for the survey. */
+      /** External URL ID for the survey. */
       @com.google.api.client.util.Key
       private java.lang.String surveyUrlId;
 
-      /** External Url Id for the survey.
+      /** External URL ID for the survey.
        */
       public java.lang.String getSurveyUrlId() {
         return surveyUrlId;
       }
 
-      /** External Url Id for the survey. */
+      /** External URL ID for the survey. */
       public Update setSurveyUrlId(java.lang.String surveyUrlId) {
         this.surveyUrlId = surveyUrlId;
         return this;
