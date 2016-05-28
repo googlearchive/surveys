@@ -33,10 +33,6 @@ To create a survey:
 $ ./example_client.py create --owner_email <email1> <email2> \
     --client_secrets_file <file>
 
-To set the number of desired responses on a survey:
-$ ./example_client.py set_response_count --survey_id <id> \
-    --client_secrets_file <file>
-
 To start the survey:
 $ ./example_client.py start --survey_id <id> --client_secrets_file <file>
 
@@ -77,10 +73,10 @@ SCOPES = [
 
 # Constants that enumerate the various operations that the client allows.
 
+# Get an existing survey.
+_GET = 'get'
 # Create a new survey.
 _CREATE = 'create'
-# Set the desired response count of an existing survey.
-_SET_RESPONSE_COUNT = 'set_response_count'
 # List the surveys that this user owns.
 _LIST = 'list'
 # Fetch the results of an existing survey.
@@ -89,8 +85,8 @@ _FETCH = 'fetch'
 _START = 'start'
 
 _OPERATIONS = [
+    _GET,
     _CREATE,
-    _SET_RESPONSE_COUNT,
     _START,
     _FETCH,
     _LIST,
@@ -104,6 +100,7 @@ You must choose one of the following operations:
   - start: Start the given survey.
   - fetch: Fetch the results in .xls format for a given survey.
   - list: List the surveys that are owned by this user.
+  - get: Get the survey definition
 
 For a full list of available flags, use the --help flag.
 """
@@ -124,6 +121,9 @@ def main():
     parser.add_argument('--results_file',
                         default='results.xls',
                         help='filename to store excel results.')
+    parser.add_argument('--autostart_max_cost_per_response',
+                        default=0,
+                        help='Maximum cost to pay for incidence pricing responses.')
 
     # Service Account flags.
     parser.add_argument('--service_account',
@@ -191,7 +191,12 @@ def main():
     if args.operation == _START:
         if not args.survey_id:
             parser.error('--survey_id is required for this operation.')
-        start_survey(cs, args.survey_id)
+        if args.autostart_max_cost_per_response:
+	    start_survey(cs, args.survey_id, args.autostart_max_cost_per_response)
+        else:
+	    start_survey(cs, args.survey_id)
+
+
         print 'You can view results for the survey here:'
         print ('https://www.google.com/insights/consumersurveys/view'
                '?survey=%s\n' % args.survey_id)
@@ -207,10 +212,10 @@ def main():
         print ('https://www.google.com/insights/consumersurveys/view'
                '?survey=%s\n' % args.survey_id)
 
-    if args.operation == _SET_RESPONSE_COUNT:
+    if args.operation == _GET:
         if not args.survey_id:
             parser.error('--survey_id is required for this operation.')
-        update_survey_response_count(cs, args.survey_id, 120)
+        print get_survey(cs, args.survey_id)
 
     if args.operation == _LIST:
         list_surveys(cs)
@@ -234,7 +239,7 @@ def list_surveys(cs):
       print '%s' % s.surveyUrlId
 
 
-def start_survey(cs, survey_id):
+def start_survey(cs, survey_id, autostart_max_cost_per_response = 0):
     """Sends the survey to the review process and it is then started.
 
     Args:
@@ -244,10 +249,11 @@ def start_survey(cs, survey_id):
     Returns:
         A dictionary containing the survey id of the started survey.
     """
-    json_spec = {'state': 'running'}
-    return cs.surveys().update(
-        surveyUrlId=survey_id, body=json_spec).execute()
-
+    if autostart_max_cost_per_response:
+      json_spec = {'autostartMaxCostPerResponse': autostart_max_cost_per_response}
+      return cs.surveys().start(
+          resourceId=survey_id,body=json_spec).execute()
+    return cs.surveys().start(resourceId=survey_id,body='{}').execute()
 
 def get_survey_results(cs, survey_id, result_file):
     """Writes the survey results into a xls file.
@@ -276,23 +282,44 @@ def create_survey(cs, owner_emails):
         A dictionary containing the survey id of the created survey.
     """
     body_def = {
-        'title': 'Phone purchase survey',
-        'description': 'What phones do people buy and how much do they pay?',
+        'title': 'Student Voters',
+        'description': 'Student Targeted Voters',
         'owners': owner_emails,
         'wantedResponseCount': 100,
         'audience': {
             'country': 'US',
             'languages': ['en-US'],
+	    'populationSource': 'androidAppPanel',
+	    'mobileAppPanelId': 'agxzfjQwMi10cmlhbDJyIAsSCVBhbmVsSW5mbyIRc3R1ZGVudHNfdmVyaWZpZWQM',
         },
         'questions': [
             {
-                'lowValueLabel': '1',
-                'openTextPlaceholder': 'enter amount here',
-                'question': 'How much did you pay for your last phone?',
-                'singleLineResponse': True,
-                'type': 'numericOpenEnded',
-                'unitOfMeasurementLabel': '$',
-                'unitsPosition': 'before',
+                'question': 'Are you currently registered to vote?',
+                'type': 'singleAnswer',
+                'answers':[
+                    'Yes',
+                    'No',
+		    'Yes, but will probably abstain'],
+                'thresholdAnswers':[
+                    'Yes'],
+            },
+            {
+                'question': 'Who would you rather vote for?',
+                'type': 'singleAnswer',
+                'answers':[
+                    'Hillary Clinton',
+                    'Bernie Sanders',
+		    'Prefer not to say'],
+                'thresholdAnswers':[
+                    'Bernie Sanders'],
+            },
+            {
+                'question': 'Who would you rather vote for?',
+                'type': 'singleAnswer',
+                'answers':[
+                    'Hillary Clinton',
+                    'Donald Trump',
+		    'Prefer not to say'],
             }
         ]
     }
@@ -302,23 +329,6 @@ def create_survey(cs, owner_emails):
         print 'Error creating the survey: %s\n' % e
         return None
     return survey
-
-
-def update_survey_response_count(cs, survey_id, new_response_count):
-    """Updated the response count of the survey.
-
-    Args:
-        cs: The cunsumer survey service used to send the HTTP requests.
-        survey_id: The survey id for which we are updating the response count
-            for.
-        new_response_count: An integer specifing the new response count for
-            the survey.
-
-    Returns:
-        A dictionary containing the survey id of the updated survey.
-    """
-    body_def = {'wantedResponseCount': new_response_count}
-    return cs.surveys().update(surveyUrlId=survey_id, body=body_def).execute()
 
 
 def setup_auth(args):
