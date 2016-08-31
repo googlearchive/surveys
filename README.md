@@ -1,10 +1,14 @@
 # Introduction
 
-This GitHub repository contains client libraries for the Google Consumer Surveys API, built by the Consumer Surveys team @ Google. Please note that these libraries are not officially supported by Google. They are provided as a convenience to users who want to get up and running quickly and would prefer not to use the REST end-points documented @ developers.google.com/consumer-surveys as they build proofs of concepts. The Consumer Surveys team will do their best to keep the libraries up-to-date as the API evolves, but it's possible that at any given point they stop working. For this reason please treat them as illustrative only. Should you want to launch a production-quality service on the API please use the REST end-points directly.
+This GitHub repository contains code samples for the Google Consumer Surveys API, built by the Consumer Surveys team @ Google. Please note that this repository is not officially supported by Google.
+
+The Consumer Surveys team will do their best to keep the this repository up-to-date as the API evolves, but it's possible that at any given point the code stops working. For this reason please treat the code as illustrative only. Should you want to launch a production-quality service on the API please use the REST end-points directly.
+
+For more information on integrating with the Google Consumer Suverys API, check out the [Google Consumer Surveys API developer site](https://developers.google.com/consumer-surveys/).
 
 -----
 
 # Contents
 
-- python: Python version of the library resides here.
-  - src: Python source code for the example client library.
+- `client_libraries-DEPRECATED`: C#, Java, and Python client libraries that are
+  deprecated and no longer maintained. Preserved here for archival purposes.
