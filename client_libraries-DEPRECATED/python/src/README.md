@@ -1,3 +1,5 @@
+# DEPRECATED - for archival purposes only
+
 In order to use the following library you should do the following..
 
 # One-time OAuth 2 setup.
