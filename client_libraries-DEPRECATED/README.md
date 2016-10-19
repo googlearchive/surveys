@@ -4,7 +4,7 @@ The libraries listed here are provided as a convenience to users who want to get
 
 Should you want to launch a production-quality service on the API please use the REST end-points directly.
 
-For more information on integrating with the Google Consumer Suverys API, check out the [Google Consumer Surveys API developer site](https://developers.google.com/consumer-surveys/).
+For more information on the Google Suverys API, check out the [Google Surveys API developer site](https://developers.google.com/surveys/).
 
 # Contents
 
