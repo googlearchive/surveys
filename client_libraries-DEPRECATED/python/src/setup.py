@@ -9,7 +9,7 @@ setuptools.setup(
     version="0.0.0.4",
     packages=setuptools.find_packages(),
     author="Google Surveys",
-    author_email="surveys-api@googlegroups.com",
+    author_email="surveys-api@google.com",
     keywords="google surveys api client",
     url="https://developers.google.com/surveys",
     license="Apache License 2.0",
