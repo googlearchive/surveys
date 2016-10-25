@@ -13,7 +13,11 @@ setuptools.setup(
     keywords="google surveys api client",
     url="https://developers.google.com/surveys",
     license="Apache License 2.0",
-    description=("Client API for Google Surveys API"),
+    description=(
+      "Client API for Google Surveys API. NOTE: This package is deprecated and"
+      " will be removed on December 1, 2016. Please use the Google API Python"
+      " Client instead: https://developers.google.com/api-client-library/python/."
+    ),
     zip_safe=True,
     include_package_data=True,
     # Exclude these files from installation.
