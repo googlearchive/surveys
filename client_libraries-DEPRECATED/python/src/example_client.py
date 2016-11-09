@@ -47,7 +47,7 @@ import httplib2
 import json
 import os
 
-from apiclient.discovery import build_from_document
+from googleapiclient.discovery import build_from_document
 import googleapiclient
 
 from oauth2client import client
@@ -234,7 +234,7 @@ def list_surveys(cs):
         print '%s' % s.surveyUrlId
 
 
-def start_survey(cs, survey_id, autostart_max_cost_per_response = 0):
+def start_survey(cs, survey_id, autostart_max_cost_per_response=0):
     """Sends the survey to the review process and it is then started.
 
     Args:
@@ -247,8 +247,9 @@ def start_survey(cs, survey_id, autostart_max_cost_per_response = 0):
     if autostart_max_cost_per_response:
         json_spec = {'autostartMaxCostPerResponse': autostart_max_cost_per_response}
         return cs.surveys().start(
-            resourceId=survey_id,body=json_spec).execute()
-    return cs.surveys().start(resourceId=survey_id,body='{}').execute()
+            resourceId=survey_id, body=json_spec).execute()
+    return cs.surveys().start(resourceId=survey_id, body='{}').execute()
+
 
 def get_survey_results(cs, survey_id, result_file):
     """Writes the survey results into a xls file.
@@ -291,26 +292,26 @@ def create_survey(cs, owner_emails):
             {
                 'question': 'Do you own a cell phone?',
                 'type': 'singleAnswer',
-                'answers':[
+                'answers': [
                     'Yes',
                     'No'],
-                'thresholdAnswers':[
+                'thresholdAnswers': [
                     'Yes'],
             },
             {
                 'question': 'What type of cell phone do you own?',
                 'type': 'singleAnswer',
-                'answers':[
+                'answers': [
                     'Android phone',
                     'iPhone',
                     'Other'],
-                'thresholdAnswers':[
+                'thresholdAnswers': [
                     'Android phone'],
             },
             {
                 'question': 'What brand is your Android phone?',
                 'type': 'singleAnswer',
-                'answers':[
+                'answers': [
                     'Google',
                     'Samsung',
                     'LG',
