@@ -181,7 +181,7 @@ def main():
             parser.exit(status=1, message='Failed to create survey.\n')
         print 'Successully created survey with id %s\n' % survey['surveyUrlId']
         print 'Once started, survey results will be visible here:'
-        print ('https://www.google.com/insights/consumersurveys/view'
+        print ('https://surveys.google.com/reporting/survey'
                '?survey=%s\n' % survey['surveyUrlId'])
 
     if args.operation == _START:
@@ -278,8 +278,8 @@ def create_survey(cs, owner_emails):
         A dictionary containing the survey id of the created survey.
     """
     body_def = {
-        'title': 'Student Voters',
-        'description': 'Student Targeted Voters',
+        'title': 'Student cell phone ownership',
+        'description': 'Ownership of cell phones, targeted towards students.',
         'owners': owner_emails,
         'wantedResponseCount': 100,
         'audience': {
@@ -290,32 +290,32 @@ def create_survey(cs, owner_emails):
         },
         'questions': [
             {
-                'question': 'Are you currently registered to vote?',
+                'question': 'Do you own a cell phone?',
                 'type': 'singleAnswer',
                 'answers':[
                     'Yes',
-                    'No',
-		    'Yes, but will probably abstain'],
+                    'No'],
                 'thresholdAnswers':[
                     'Yes'],
             },
             {
-                'question': 'Who would you rather vote for?',
+                'question': 'What type of cell phone do you own?',
                 'type': 'singleAnswer',
                 'answers':[
-                    'Hillary Clinton',
-                    'Bernie Sanders',
-		    'Prefer not to say'],
+                    'Android phone',
+                    'iPhone',
+                    'Other'],
                 'thresholdAnswers':[
-                    'Bernie Sanders'],
+                    'Android phone'],
             },
             {
-                'question': 'Who would you rather vote for?',
+                'question': 'What brand is your Android phone?',
                 'type': 'singleAnswer',
                 'answers':[
-                    'Hillary Clinton',
-                    'Donald Trump',
-		    'Prefer not to say'],
+                    'Google',
+                    'Samsung',
+                    'LG',
+                    'Other'],
             }
         ]
     }
