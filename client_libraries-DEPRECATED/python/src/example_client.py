@@ -105,7 +105,7 @@ For a full list of available flags, use the --help flag.
 def main():
     parser = argparse.ArgumentParser(
         usage=_DESCRIPTION,
-        )
+    )
     parser.add_argument('operation', choices=_OPERATIONS,
                         help='The operation to perform.')
     parser.add_argument('--survey_id',
@@ -188,10 +188,9 @@ def main():
         if not args.survey_id:
             parser.error('--survey_id is required for this operation.')
         if args.autostart_max_cost_per_response:
-	    start_survey(cs, args.survey_id, args.autostart_max_cost_per_response)
+            start_survey(cs, args.survey_id, args.autostart_max_cost_per_response)
         else:
-	    start_survey(cs, args.survey_id)
-
+            start_survey(cs, args.survey_id)
 
         print 'You can view results for the survey here:'
         print ('https://www.google.com/insights/consumersurveys/view'
@@ -232,7 +231,7 @@ def list_surveys(cs):
     """
     results = cs.surveys().list().execute()
     for s in results.resources:
-      print '%s' % s.surveyUrlId
+        print '%s' % s.surveyUrlId
 
 
 def start_survey(cs, survey_id, autostart_max_cost_per_response = 0):
@@ -246,9 +245,9 @@ def start_survey(cs, survey_id, autostart_max_cost_per_response = 0):
         A dictionary containing the survey id of the started survey.
     """
     if autostart_max_cost_per_response:
-      json_spec = {'autostartMaxCostPerResponse': autostart_max_cost_per_response}
-      return cs.surveys().start(
-          resourceId=survey_id,body=json_spec).execute()
+        json_spec = {'autostartMaxCostPerResponse': autostart_max_cost_per_response}
+        return cs.surveys().start(
+            resourceId=survey_id,body=json_spec).execute()
     return cs.surveys().start(resourceId=survey_id,body='{}').execute()
 
 def get_survey_results(cs, survey_id, result_file):
@@ -285,8 +284,8 @@ def create_survey(cs, owner_emails):
         'audience': {
             'country': 'US',
             'languages': ['en-US'],
-	    'populationSource': 'androidAppPanel',
-	    'mobileAppPanelId': 'agxzfjQwMi10cmlhbDJyIAsSCVBhbmVsSW5mbyIRc3R1ZGVudHNfdmVyaWZpZWQM',
+            'populationSource': 'androidAppPanel',
+            'mobileAppPanelId': 'agxzfjQwMi10cmlhbDJyIAsSCVBhbmVsSW5mbyIRc3R1ZGVudHNfdmVyaWZpZWQM',
         },
         'questions': [
             {
@@ -341,13 +340,13 @@ def setup_auth(args):
     if args.service_account:
         # Service accounts will follow the following authenication.
         client_email = args.service_account
-	secret_file = args.service_account_secrets_file
-	if secret_file.endswith('json'):
-	    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-		secret_file, SCOPES)
-	elif secret_file.endswith('p12'):
-	    credentials = ServiceAccountCredentials.from_p12_keyfile(
-	        client_email, secret_file, SCOPES)
+        secret_file = args.service_account_secrets_file
+        if secret_file.endswith('json'):
+            credentials = ServiceAccountCredentials.from_json_keyfile_name(
+                secret_file, SCOPES)
+        elif secret_file.endswith('p12'):
+            credentials = ServiceAccountCredentials.from_p12_keyfile(
+                client_email, secret_file, SCOPES)
 
     else:
         flow = flow_from_clientsecrets(args.client_secrets_file, scope=SCOPES)
