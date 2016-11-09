@@ -14,20 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Command-line tool for interacting with the Google Consumer Surveys API.
+"""Command-line tool for interacting with the Google Surveys API.
 
 To run, generate a client secret using https://console.developers.google.com/
 under the APIs and Auth Tab for your project. Then download the JSON object
 and save it as client_secrets.json
 
 For more instructions on how to obtain the local files necessary for OAuth
-authorization, please see https://github.com/google/consumer-surveys
+authorization, please see https://github.com/google/surveys
 
-Download and install the python Google Oauth Library:
-https://code.google.com/p/google-api-python-client/downloads/list
-
-Or install it with PIP:
-$ pip install google-api-python-client
+Install the Google APIs Client Library for Python:
+$ pip install --upgrade google-api-python-client
 
 To create a survey:
 $ ./example_client.py create --owner_email <email1> <email2> \
@@ -35,7 +32,6 @@ $ ./example_client.py create --owner_email <email1> <email2> \
 
 To start the survey:
 $ ./example_client.py start --survey_id <id> --client_secrets_file <file>
-
 
 To download survey results:
 $ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls \
@@ -229,7 +225,7 @@ def list_surveys(cs):
     """Prints the surveys that are owned by the given user.
 
     Args:
-        cs: The Consumer Surveys Service used to send the HTTP requests.
+        cs: The Surveys Service used to send the HTTP requests.
 
     Returns:
         A dictionary containing the survey id of the started survey.
@@ -243,7 +239,7 @@ def start_survey(cs, survey_id, autostart_max_cost_per_response = 0):
     """Sends the survey to the review process and it is then started.
 
     Args:
-        cs: The Consumer Surveys Service used to send the HTTP requests.
+        cs: The Surveys Service used to send the HTTP requests.
         survey_id: The survey id for which we are starting the survey.
 
     Returns:
@@ -259,7 +255,7 @@ def get_survey_results(cs, survey_id, result_file):
     """Writes the survey results into a xls file.
 
     Args:
-        cs: The Consumer survey service used to send the HTTP requests.
+        cs: The Survey Service used to send the HTTP requests.
         survey_id: The survey id for which we are downloading the
             survey results for.
         result_file: The file name which we write the survey results to.
@@ -275,7 +271,7 @@ def create_survey(cs, owner_emails):
        survey fields.
 
     Args:
-        cs: The consumer survey service used to send the HTTP requests.
+        cs: The Surveys Service used to send the HTTP requests.
         owner_emails: The list of owners that will be in the newly created
             survey.
     Returns:
