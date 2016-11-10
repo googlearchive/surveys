@@ -176,7 +176,7 @@ def main():
         if not survey:
             parser.exit(status=1, message='Failed to create survey.\n')
         print 'Successully created survey with id %s\n' % survey['surveyUrlId']
-        print 'Once started, survey results will be visible here:'
+        print 'Once started, you can view survey results here:'
         print ('https://surveys.google.com/reporting/survey'
                '?survey=%s\n' % survey['surveyUrlId'])
 
@@ -188,8 +188,8 @@ def main():
         else:
             start_survey(cs, args.survey_id)
 
-        print 'You can view results for the survey here:'
-        print ('https://www.google.com/insights/consumersurveys/view'
+        print 'You can view survey results here:'
+        print ('https://surveys.google.com/reporting/survey'
                '?survey=%s\n' % args.survey_id)
 
     if args.operation == _FETCH:
@@ -200,7 +200,7 @@ def main():
             args.survey_id,
             args.results_file)
         print 'You can also view the survey results here:'
-        print ('https://www.google.com/insights/consumersurveys/view'
+        print ('https://surveys.google.com/reporting/survey'
                '?survey=%s\n' % args.survey_id)
 
     if args.operation == _GET:
