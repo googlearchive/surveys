@@ -213,7 +213,17 @@ def main():
 
 
 def get_survey(cs, survey_id):
-    return cs.surveys().get(surveyUrlId=survey_id).execute()
+    """Gets a survey.
+
+    Args:
+        cs: The Surveys Service used to send the HTTP requests.
+        survey_id: The id of the survey to get.
+
+    Returns:
+        A dictionary containing the survey fields.
+    """
+    result = cs.surveys().get(surveyUrlId=survey_id).execute()
+    return result
 
 
 def list_surveys(cs):
@@ -221,9 +231,6 @@ def list_surveys(cs):
 
     Args:
         cs: The Surveys Service used to send the HTTP requests.
-
-    Returns:
-        A dictionary containing the survey id of the started survey.
     """
     results = cs.surveys().list().execute()
     for s in results.get('resources'):
