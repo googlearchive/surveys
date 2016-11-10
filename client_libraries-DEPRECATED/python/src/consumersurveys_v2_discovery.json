@@ -1,12 +1,14 @@
 {
  "kind": "discovery#restDescription",
+ "etag": "\"C5oy1hgQsABtYOYIOXWcR3BgYqU/b_vlRToZJZef44KIZeVA8YrVanY\"",
  "discoveryVersion": "v1",
  "id": "consumersurveys:v2",
  "name": "consumersurveys",
+ "canonicalName": "Consumer Surveys",
  "version": "v2",
- "revision": "20160321",
+ "revision": "20161101",
  "title": "Consumer Surveys API",
- "description": "API for Google Consumer Surveys.",
+ "description": "Creates and conducts surveys, lists the surveys that an authenticated user owns, and retrieves survey results and information about specified surveys.",
  "ownerDomain": "google.com",
  "ownerName": "Google",
  "icons": {
@@ -67,6 +69,12 @@
  "auth": {
   "oauth2": {
    "scopes": {
+    "https://www.googleapis.com/auth/consumersurveys": {
+     "description": "View and edit your surveys and results"
+    },
+    "https://www.googleapis.com/auth/consumersurveys.readonly": {
+     "description": "View the results for your surveys"
+    },
     "https://www.googleapis.com/auth/userinfo.email": {
      "description": "View your email address"
     }
@@ -87,6 +95,56 @@
     "id": {
      "type": "integer",
      "format": "int32"
+    }
+   }
+  },
+  "MobileAppPanel": {
+   "id": "MobileAppPanel",
+   "type": "object",
+   "properties": {
+    "country": {
+     "type": "string"
+    },
+    "isPublicPanel": {
+     "type": "boolean"
+    },
+    "language": {
+     "type": "string"
+    },
+    "mobileAppPanelId": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "owners": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "MobileAppPanelsListResponse": {
+   "id": "MobileAppPanelsListResponse",
+   "type": "object",
+   "properties": {
+    "pageInfo": {
+     "$ref": "PageInfo"
+    },
+    "requestId": {
+     "type": "string",
+     "description": "Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests."
+    },
+    "resources": {
+     "type": "array",
+     "description": "An individual predefined panel of Opinion Rewards mobile users.",
+     "items": {
+      "$ref": "MobileAppPanel"
+     }
+    },
+    "tokenPagination": {
+     "$ref": "TokenPagination"
     }
    }
   },
@@ -135,64 +193,46 @@
   "Survey": {
    "id": "Survey",
    "type": "object",
-   "description": "Message defining the Survey collections for the REST API.",
    "properties": {
     "audience": {
-     "$ref": "SurveyAudience",
-     "description": "Targeting criteria message containing demographic information"
+     "$ref": "SurveyAudience"
     },
     "cost": {
-     "$ref": "SurveyCost",
-     "description": "Cost to run the survey and collect the necessary number of responses."
+     "$ref": "SurveyCost"
     },
     "customerData": {
      "type": "string",
-     "description": "Additional information to store on behalf of the API consumer and associate with this question. This binary blob is treated as opaque. This field is limited to 64K bytes.",
      "format": "byte"
     },
     "description": {
-     "type": "string",
-     "description": "Text description of the survey."
+     "type": "string"
     },
     "owners": {
      "type": "array",
-     "description": "List of email addresses for survey owners. Must contain at least the address of the user making the API call.",
      "items": {
       "type": "string"
-     },
-     "annotations": {
-      "required": [
-       "consumersurveys.surveys.insert"
-      ]
      }
     },
     "questions": {
      "type": "array",
-     "description": "List of questions defining the survey.",
      "items": {
       "$ref": "SurveyQuestion"
-     },
-     "annotations": {
-      "required": [
-       "consumersurveys.surveys.insert"
-      ]
      }
     },
+    "rejectionReason": {
+     "$ref": "SurveyRejection"
+    },
     "state": {
-     "type": "string",
-     "description": "State that the survey is in. Can be modified to start, stop, or pause survey."
+     "type": "string"
     },
     "surveyUrlId": {
-     "type": "string",
-     "description": "Unique survey ID, that is viewable in the URL of the Survey Creator UI"
+     "type": "string"
     },
     "title": {
-     "type": "string",
-     "description": "Optional name that will be given to the survey."
+     "type": "string"
     },
     "wantedResponseCount": {
      "type": "integer",
-     "description": "Number of responses desired for the survey.",
      "format": "int32"
     }
    }
@@ -200,58 +240,53 @@
   "SurveyAudience": {
    "id": "SurveyAudience",
    "type": "object",
-   "description": "Specifications for the target audience of a survey run through the API.",
    "properties": {
     "ages": {
      "type": "array",
-     "description": "Optional list of age buckets to target. Supported age buckets are: ['18-24', '25-34', '35-44', '45-54', '55-64', '65+']",
      "items": {
       "type": "string"
      }
     },
     "country": {
-     "type": "string",
-     "description": "Required country code that surveys should be targeted to. Accepts standard ISO 3166-1 2 character language codes, e.g. 'US'",
-     "annotations": {
-      "required": [
-       "consumersurveys.surveys.insert"
-      ]
-     }
+     "type": "string"
+    },
+    "countrySubdivision": {
+     "type": "string"
     },
     "gender": {
-     "type": "string",
-     "description": "Optional gender to target."
+     "type": "string"
     },
     "languages": {
      "type": "array",
-     "description": "Language code that surveys should be targeted to, e.g. 'en-US'. Surveys may target bilingual users by specifying a list of language codes (e.g. 'de' and 'en-US'). In that case, all languages will be used for targeting users but the survey content (which is displayed) must match the first language listed. Accepts standard BCP47 language codes. See specification.",
      "items": {
       "type": "string"
-     },
-     "annotations": {
-      "required": [
-       "consumersurveys.surveys.insert"
-      ]
      }
     },
+    "mobileAppPanelId": {
+     "type": "string"
+    },
     "populationSource": {
-     "type": "string",
-     "description": "Online population source where the respondents are sampled from."
+     "type": "string"
     }
    }
   },
   "SurveyCost": {
    "id": "SurveyCost",
    "type": "object",
-   "description": "Message defining the cost to run a given survey through API.",
    "properties": {
-    "currencyCode": {
+    "costPerResponseNanos": {
      "type": "string",
-     "description": "Currency code that the cost is given in."
+     "format": "int64"
+    },
+    "currencyCode": {
+     "type": "string"
+    },
+    "maxCostPerResponseNanos": {
+     "type": "string",
+     "format": "int64"
     },
     "nanos": {
      "type": "string",
-     "description": "Cost of survey in nano units of the given currency.",
      "format": "int64"
     }
    }
@@ -259,26 +294,21 @@
   "SurveyQuestion": {
    "id": "SurveyQuestion",
    "type": "object",
-   "description": "Message defining the question specifications.",
    "properties": {
     "answerOrder": {
-     "type": "string",
-     "description": "The randomization option for multiple choice and multi-select questions. If not specified, the API defaults to randomize."
+     "type": "string"
     },
     "answers": {
      "type": "array",
-     "description": "Required list of answer options for a question.",
      "items": {
       "type": "string"
      }
     },
     "hasOther": {
-     "type": "boolean",
-     "description": "Option to allow open-ended text box for multi and multi-select question types. This can be used with SINGLE_ANSWER, SINGLE_ANSWER_WITH_IMAGE, MULTIPLE_ANSWERS, and MULTIPLE_ANSWERS_WITH_IMAGE question types."
+     "type": "boolean"
     },
     "highValueLabel": {
-     "type": "string",
-     "description": "For rating questions, the text for the higher end of the scale, such as 'Best'. For numeric questions, a string representing a floating-point that is the maximum allowed number for a response."
+     "type": "string"
     },
     "images": {
      "type": "array",
@@ -287,106 +317,99 @@
      }
     },
     "lastAnswerPositionPinned": {
-     "type": "boolean",
-     "description": "Currently only support pinning an answer option to the last position."
+     "type": "boolean"
     },
     "lowValueLabel": {
-     "type": "string",
-     "description": "For rating questions, the text for the lower end of the scale, such as 'Worst'. For numeric questions, a string representing a floating-point that is the minimum allowed number for a response."
+     "type": "string"
     },
     "mustPickSuggestion": {
-     "type": "boolean",
-     "description": "Option to force the user to pick one of the open text suggestions. This requires that suggestions are provided for this question."
+     "type": "boolean"
     },
     "numStars": {
-     "type": "string",
-     "description": "Number of stars to use for ratings questions."
+     "type": "string"
     },
     "openTextPlaceholder": {
-     "type": "string",
-     "description": "Placeholder text for an open text question."
+     "type": "string"
     },
     "openTextSuggestions": {
      "type": "array",
-     "description": "A list of suggested answers for open text question auto-complete. This is only valid if single_line_response is true.",
      "items": {
       "type": "string"
      }
     },
     "question": {
-     "type": "string",
-     "description": "Required question text shown to the respondent."
+     "type": "string"
     },
     "sentimentText": {
-     "type": "string",
-     "description": "Used by the rating scale with text question type, this text goes along with the \"question\" field when presented to the respondent and is the text a 'rating with text' question asks a user to rate."
+     "type": "string"
     },
     "singleLineResponse": {
-     "type": "boolean",
-     "description": "Option to allow multiple line open text responses instead of a single line response. Note that we don't show auto-complete suggestions with multiple line responses."
+     "type": "boolean"
     },
     "thresholdAnswers": {
      "type": "array",
-     "description": "The threshold/screener answer options, which will screen a user into the rest of the survey. These will be a subset of the answer option strings.",
      "items": {
       "type": "string"
      }
     },
     "type": {
-     "type": "string",
-     "description": "Required field defining the question type. For details about configuring different type of questions, consult the  question configuration guide.",
-     "annotations": {
-      "required": [
-       "consumersurveys.surveys.insert"
-      ]
-     }
+     "type": "string"
     },
     "unitOfMeasurementLabel": {
-     "type": "string",
-     "description": "Optional unit of measurement for display (ie. hours, people, miles)."
-    },
-    "unitsPosition": {
-     "type": "string",
-     "description": "Where the unit_of_measurement string should appear in relation to the input field."
+     "type": "string"
     },
     "videoId": {
-     "type": "string",
-     "description": "The youtube video id to be show in video questions."
+     "type": "string"
     }
    }
   },
   "SurveyQuestionImage": {
    "id": "SurveyQuestionImage",
    "type": "object",
-   "description": "Container object for image data and alt_text.",
    "properties": {
     "altText": {
-     "type": "string",
-     "description": "The alt text property used in image tags is required for all images."
+     "type": "string"
     },
     "data": {
      "type": "string",
-     "description": "Inline jpeg, gif, tiff, bmp, or png image raw bytes for an image question types.",
      "format": "byte"
     },
     "url": {
-     "type": "string",
-     "description": "The read-only url for the hosted images."
+     "type": "string"
+    }
+   }
+  },
+  "SurveyRejection": {
+   "id": "SurveyRejection",
+   "type": "object",
+   "properties": {
+    "explanation": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string"
     }
    }
   },
   "SurveyResults": {
    "id": "SurveyResults",
    "type": "object",
-   "description": "Response message for API requests to get survey results.",
    "properties": {
     "status": {
-     "type": "string",
-     "description": "Human readable string describing the status of the request"
+     "type": "string"
     },
     "surveyUrlId": {
+     "type": "string"
+    }
+   }
+  },
+  "SurveysDeleteResponse": {
+   "id": "SurveysDeleteResponse",
+   "type": "object",
+   "properties": {
+    "requestId": {
      "type": "string",
-     "description": "External survey id as viewable by survey owners in the editor view."
+     "description": "Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests."
     }
    }
   },
@@ -399,11 +422,11 @@
     },
     "requestId": {
      "type": "string",
-     "description": "Unique request id used for logging and debugging. Please include in any error reporting or troubleshooting requests."
+     "description": "Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests."
     },
     "resources": {
      "type": "array",
-     "description": "Survey object containing the specifications.",
+     "description": "An individual survey resource.",
      "items": {
       "$ref": "Survey"
      }
@@ -413,13 +436,24 @@
     }
    }
   },
+  "SurveysStartRequest": {
+   "id": "SurveysStartRequest",
+   "type": "object",
+   "properties": {
+    "maxCostPerResponseNanos": {
+     "type": "string",
+     "description": "Threshold to start a survey automically if the quoted prices is less than or equal to this value. See Survey.Cost for more details.",
+     "format": "int64"
+    }
+   }
+  },
   "SurveysStartResponse": {
    "id": "SurveysStartResponse",
    "type": "object",
    "properties": {
     "requestId": {
      "type": "string",
-     "description": "Unique request id used for logging and debugging. Please include in any error reporting or troubleshooting requests."
+     "description": "Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests."
     },
     "resource": {
      "$ref": "Survey",
@@ -433,7 +467,7 @@
    "properties": {
     "requestId": {
      "type": "string",
-     "description": "Unique request id used for logging and debugging. Please include in any error reporting or troubleshooting requests."
+     "description": "Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests."
     },
     "resource": {
      "$ref": "Survey",
@@ -455,17 +489,103 @@
   }
  },
  "resources": {
+  "mobileapppanels": {
+   "methods": {
+    "get": {
+     "id": "consumersurveys.mobileapppanels.get",
+     "path": "mobileAppPanels/{panelId}",
+     "httpMethod": "GET",
+     "description": "Retrieves a MobileAppPanel that is available to the authenticated user.",
+     "parameters": {
+      "panelId": {
+       "type": "string",
+       "description": "External URL ID for the panel.",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "panelId"
+     ],
+     "response": {
+      "$ref": "MobileAppPanel"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
+      "https://www.googleapis.com/auth/consumersurveys.readonly",
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "list": {
+     "id": "consumersurveys.mobileapppanels.list",
+     "path": "mobileAppPanels",
+     "httpMethod": "GET",
+     "description": "Lists the MobileAppPanels available to the authenticated user.",
+     "parameters": {
+      "maxResults": {
+       "type": "integer",
+       "format": "uint32",
+       "location": "query"
+      },
+      "startIndex": {
+       "type": "integer",
+       "format": "uint32",
+       "location": "query"
+      },
+      "token": {
+       "type": "string",
+       "location": "query"
+      }
+     },
+     "response": {
+      "$ref": "MobileAppPanelsListResponse"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
+      "https://www.googleapis.com/auth/consumersurveys.readonly",
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "update": {
+     "id": "consumersurveys.mobileapppanels.update",
+     "path": "mobileAppPanels/{panelId}",
+     "httpMethod": "PUT",
+     "description": "Updates a MobileAppPanel. Currently the only property that can be updated is the owners property.",
+     "parameters": {
+      "panelId": {
+       "type": "string",
+       "description": "External URL ID for the panel.",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "panelId"
+     ],
+     "request": {
+      "$ref": "MobileAppPanel"
+     },
+     "response": {
+      "$ref": "MobileAppPanel"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  },
   "results": {
    "methods": {
     "get": {
      "id": "consumersurveys.results.get",
      "path": "surveys/{surveyUrlId}/results",
      "httpMethod": "GET",
-     "description": "Method for retrieving survey results.",
+     "description": "Retrieves any survey results that have been produced so far. Results are formatted as an Excel file. You must add \"?alt=media\" to the URL as an argument to get results.",
      "parameters": {
       "surveyUrlId": {
        "type": "string",
-       "description": "External Url Id for the survey.",
+       "description": "External URL ID for the survey.",
        "required": true,
        "location": "path"
       }
@@ -480,6 +600,8 @@
       "$ref": "SurveyResults"
      },
      "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
+      "https://www.googleapis.com/auth/consumersurveys.readonly",
       "https://www.googleapis.com/auth/userinfo.email"
      ],
      "supportsMediaDownload": true
@@ -488,15 +610,39 @@
   },
   "surveys": {
    "methods": {
+    "delete": {
+     "id": "consumersurveys.surveys.delete",
+     "path": "surveys/{surveyUrlId}",
+     "httpMethod": "DELETE",
+     "description": "Removes a survey from view in all user GET requests.",
+     "parameters": {
+      "surveyUrlId": {
+       "type": "string",
+       "description": "External URL ID for the survey.",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "surveyUrlId"
+     ],
+     "response": {
+      "$ref": "SurveysDeleteResponse"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
     "get": {
      "id": "consumersurveys.surveys.get",
      "path": "surveys/{surveyUrlId}",
      "httpMethod": "GET",
-     "description": "Method for retrieving a survey json specification, state, and cost.",
+     "description": "Retrieves information about the specified survey.",
      "parameters": {
       "surveyUrlId": {
        "type": "string",
-       "description": "External Url Id for the survey.",
+       "description": "External URL ID for the survey.",
        "required": true,
        "location": "path"
       }
@@ -508,6 +654,8 @@
       "$ref": "Survey"
      },
      "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
+      "https://www.googleapis.com/auth/consumersurveys.readonly",
       "https://www.googleapis.com/auth/userinfo.email"
      ]
     },
@@ -515,7 +663,7 @@
      "id": "consumersurveys.surveys.insert",
      "path": "surveys",
      "httpMethod": "POST",
-     "description": "Method for creating a survey from a json specification.",
+     "description": "Creates a survey.",
      "request": {
       "$ref": "Survey"
      },
@@ -523,6 +671,7 @@
       "$ref": "Survey"
      },
      "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
       "https://www.googleapis.com/auth/userinfo.email"
      ]
     },
@@ -530,7 +679,7 @@
      "id": "consumersurveys.surveys.list",
      "path": "surveys",
      "httpMethod": "GET",
-     "description": "Method for listing the surveys owned by the caller.",
+     "description": "Lists the surveys owned by the authenticated user.",
      "parameters": {
       "maxResults": {
        "type": "integer",
@@ -551,6 +700,8 @@
       "$ref": "SurveysListResponse"
      },
      "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
+      "https://www.googleapis.com/auth/consumersurveys.readonly",
       "https://www.googleapis.com/auth/userinfo.email"
      ]
     },
@@ -558,7 +709,7 @@
      "id": "consumersurveys.surveys.start",
      "path": "surveys/{resourceId}/start",
      "httpMethod": "POST",
-     "description": "Method for starting a survey.",
+     "description": "Begins running a survey.",
      "parameters": {
       "resourceId": {
        "type": "string",
@@ -569,10 +720,14 @@
      "parameterOrder": [
       "resourceId"
      ],
+     "request": {
+      "$ref": "SurveysStartRequest"
+     },
      "response": {
       "$ref": "SurveysStartResponse"
      },
      "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
       "https://www.googleapis.com/auth/userinfo.email"
      ]
     },
@@ -580,7 +735,7 @@
      "id": "consumersurveys.surveys.stop",
      "path": "surveys/{resourceId}/stop",
      "httpMethod": "POST",
-     "description": "Method for stopping a survey.",
+     "description": "Stops a running survey.",
      "parameters": {
       "resourceId": {
        "type": "string",
@@ -595,6 +750,7 @@
       "$ref": "SurveysStopResponse"
      },
      "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
       "https://www.googleapis.com/auth/userinfo.email"
      ]
     },
@@ -602,11 +758,11 @@
      "id": "consumersurveys.surveys.update",
      "path": "surveys/{surveyUrlId}",
      "httpMethod": "PUT",
-     "description": "Method for updating a survey.",
+     "description": "Updates a survey. Currently the only property that can be updated is the owners property.",
      "parameters": {
       "surveyUrlId": {
        "type": "string",
-       "description": "External Url Id for the survey.",
+       "description": "External URL ID for the survey.",
        "required": true,
        "location": "path"
       }
@@ -621,6 +777,7 @@
       "$ref": "Survey"
      },
      "scopes": [
+      "https://www.googleapis.com/auth/consumersurveys",
       "https://www.googleapis.com/auth/userinfo.email"
      ]
     }
