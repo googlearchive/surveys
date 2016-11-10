@@ -43,19 +43,15 @@ $ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls \
 """
 
 import argparse
-import httplib2
-import json
 import os
 
+import httplib2
 from googleapiclient.discovery import build_from_document
-import googleapiclient
-
-from oauth2client import client
+from googleapiclient.errors import HttpError
 from oauth2client import clientsecrets
-from oauth2client import tools
 from oauth2client import file as oauth_file
+from oauth2client import tools
 from oauth2client.client import flow_from_clientsecrets
-from oauth2client.client import OAuth2Credentials
 from oauth2client.service_account import ServiceAccountCredentials
 
 _SERVICE_ACCOUNT_SECRETS = 'robot_account_secret.json'
@@ -321,7 +317,7 @@ def create_survey(cs, owner_emails):
     }
     try:
         survey = cs.surveys().insert(body=body_def).execute()
-    except googleapiclient.errors.HttpError, e:
+    except HttpError, e:
         print 'Error creating the survey: %s\n' % e
         return None
     return survey
