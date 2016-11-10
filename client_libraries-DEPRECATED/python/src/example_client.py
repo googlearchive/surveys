@@ -226,8 +226,8 @@ def list_surveys(cs):
         A dictionary containing the survey id of the started survey.
     """
     results = cs.surveys().list().execute()
-    for s in results.resources:
-        print '%s' % s.surveyUrlId
+    for s in results.get('resources'):
+        print "ID: %s, Title: %s" % (s.get('surveyUrlId'), s.get('title'))
 
 
 def start_survey(cs, survey_id, autostart_max_cost_per_response=0):
