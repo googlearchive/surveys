@@ -351,6 +351,8 @@ def setup_auth(args):
         elif secret_file.endswith('p12'):
             credentials = ServiceAccountCredentials.from_p12_keyfile(
                 client_email, secret_file, SCOPES)
+        else:
+            raise RuntimeError('Credentials file must end with .json or .p12.')
 
     else:
         flow = flow_from_clientsecrets(args.client_secrets_file, scope=SCOPES)
