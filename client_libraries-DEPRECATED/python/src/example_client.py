@@ -14,20 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Command-line tool for interacting with the Google Consumer Surveys API.
+"""Command-line tool for interacting with the Google Surveys API.
 
 To run, generate a client secret using https://console.developers.google.com/
 under the APIs and Auth Tab for your project. Then download the JSON object
 and save it as client_secrets.json
 
 For more instructions on how to obtain the local files necessary for OAuth
-authorization, please see https://github.com/google/consumer-surveys
+authorization, please see https://github.com/google/surveys
 
-Download and install the python Google Oauth Library:
-https://code.google.com/p/google-api-python-client/downloads/list
-
-Or install it with PIP:
-$ pip install google-api-python-client
+Install the Google APIs Client Library for Python:
+$ pip install --upgrade google-api-python-client
 
 To create a survey:
 $ ./example_client.py create --owner_email <email1> <email2> \
@@ -35,7 +32,6 @@ $ ./example_client.py create --owner_email <email1> <email2> \
 
 To start the survey:
 $ ./example_client.py start --survey_id <id> --client_secrets_file <file>
-
 
 To download survey results:
 $ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls \
@@ -47,19 +43,16 @@ $ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls \
 """
 
 import argparse
-import httplib2
-import json
 import os
+import pprint
 
-from apiclient.discovery import build_from_document
-import googleapiclient
-
-from oauth2client import client
+import httplib2
+from googleapiclient.discovery import build_from_document
+from googleapiclient.errors import HttpError
 from oauth2client import clientsecrets
-from oauth2client import tools
 from oauth2client import file as oauth_file
+from oauth2client import tools
 from oauth2client.client import flow_from_clientsecrets
-from oauth2client.client import OAuth2Credentials
 from oauth2client.service_account import ServiceAccountCredentials
 
 _SERVICE_ACCOUNT_SECRETS = 'robot_account_secret.json'
@@ -109,7 +102,7 @@ For a full list of available flags, use the --help flag.
 def main():
     parser = argparse.ArgumentParser(
         usage=_DESCRIPTION,
-        )
+    )
     parser.add_argument('operation', choices=_OPERATIONS,
                         help='The operation to perform.')
     parser.add_argument('--survey_id',
@@ -184,21 +177,20 @@ def main():
         if not survey:
             parser.exit(status=1, message='Failed to create survey.\n')
         print 'Successully created survey with id %s\n' % survey['surveyUrlId']
-        print 'Once started, survey results will be visible here:'
-        print ('https://www.google.com/insights/consumersurveys/view'
+        print 'Once started, you can view survey results here:'
+        print ('https://surveys.google.com/reporting/survey'
                '?survey=%s\n' % survey['surveyUrlId'])
 
     if args.operation == _START:
         if not args.survey_id:
             parser.error('--survey_id is required for this operation.')
         if args.autostart_max_cost_per_response:
-	    start_survey(cs, args.survey_id, args.autostart_max_cost_per_response)
+            start_survey(cs, args.survey_id, args.autostart_max_cost_per_response)
         else:
-	    start_survey(cs, args.survey_id)
+            start_survey(cs, args.survey_id)
 
-
-        print 'You can view results for the survey here:'
-        print ('https://www.google.com/insights/consumersurveys/view'
+        print 'You can view survey results here:'
+        print ('https://surveys.google.com/reporting/survey'
                '?survey=%s\n' % args.survey_id)
 
     if args.operation == _FETCH:
@@ -209,57 +201,65 @@ def main():
             args.survey_id,
             args.results_file)
         print 'You can also view the survey results here:'
-        print ('https://www.google.com/insights/consumersurveys/view'
+        print ('https://surveys.google.com/reporting/survey'
                '?survey=%s\n' % args.survey_id)
 
     if args.operation == _GET:
         if not args.survey_id:
             parser.error('--survey_id is required for this operation.')
-        print get_survey(cs, args.survey_id)
+        pprint.pprint(get_survey(cs, args.survey_id))
 
     if args.operation == _LIST:
         list_surveys(cs)
 
 
 def get_survey(cs, survey_id):
-    return cs.surveys().get(surveyUrlId=survey_id).execute()
+    """Gets a survey.
+
+    Args:
+        cs: The Surveys Service used to send the HTTP requests.
+        survey_id: The id of the survey to get.
+
+    Returns:
+        A dictionary containing the survey fields.
+    """
+    result = cs.surveys().get(surveyUrlId=survey_id).execute()
+    return result
 
 
 def list_surveys(cs):
     """Prints the surveys that are owned by the given user.
 
     Args:
-        cs: The Consumer Surveys Service used to send the HTTP requests.
-
-    Returns:
-        A dictionary containing the survey id of the started survey.
+        cs: The Surveys Service used to send the HTTP requests.
     """
     results = cs.surveys().list().execute()
-    for s in results.resources:
-      print '%s' % s.surveyUrlId
+    for s in results.get('resources'):
+        pprint.pprint(s)
 
 
-def start_survey(cs, survey_id, autostart_max_cost_per_response = 0):
+def start_survey(cs, survey_id, autostart_max_cost_per_response=0):
     """Sends the survey to the review process and it is then started.
 
     Args:
-        cs: The Consumer Surveys Service used to send the HTTP requests.
+        cs: The Surveys Service used to send the HTTP requests.
         survey_id: The survey id for which we are starting the survey.
 
     Returns:
         A dictionary containing the survey id of the started survey.
     """
     if autostart_max_cost_per_response:
-      json_spec = {'autostartMaxCostPerResponse': autostart_max_cost_per_response}
-      return cs.surveys().start(
-          resourceId=survey_id,body=json_spec).execute()
-    return cs.surveys().start(resourceId=survey_id,body='{}').execute()
+        json_spec = {'autostartMaxCostPerResponse': autostart_max_cost_per_response}
+        return cs.surveys().start(
+            resourceId=survey_id, body=json_spec).execute()
+    return cs.surveys().start(resourceId=survey_id, body='{}').execute()
+
 
 def get_survey_results(cs, survey_id, result_file):
     """Writes the survey results into a xls file.
 
     Args:
-        cs: The Consumer survey service used to send the HTTP requests.
+        cs: The Survey Service used to send the HTTP requests.
         survey_id: The survey id for which we are downloading the
             survey results for.
         result_file: The file name which we write the survey results to.
@@ -275,57 +275,57 @@ def create_survey(cs, owner_emails):
        survey fields.
 
     Args:
-        cs: The consumer survey service used to send the HTTP requests.
+        cs: The Surveys Service used to send the HTTP requests.
         owner_emails: The list of owners that will be in the newly created
             survey.
     Returns:
         A dictionary containing the survey id of the created survey.
     """
     body_def = {
-        'title': 'Student Voters',
-        'description': 'Student Targeted Voters',
+        'title': 'Student cell phone ownership',
+        'description': 'Ownership of cell phones, targeted towards students.',
         'owners': owner_emails,
         'wantedResponseCount': 100,
         'audience': {
             'country': 'US',
             'languages': ['en-US'],
-	    'populationSource': 'androidAppPanel',
-	    'mobileAppPanelId': 'agxzfjQwMi10cmlhbDJyIAsSCVBhbmVsSW5mbyIRc3R1ZGVudHNfdmVyaWZpZWQM',
+            'populationSource': 'androidAppPanel',
+            'mobileAppPanelId': 'agxzfjQwMi10cmlhbDJyIAsSCVBhbmVsSW5mbyIRc3R1ZGVudHNfdmVyaWZpZWQM',
         },
         'questions': [
             {
-                'question': 'Are you currently registered to vote?',
+                'question': 'Do you own a cell phone?',
                 'type': 'singleAnswer',
-                'answers':[
+                'answers': [
                     'Yes',
-                    'No',
-		    'Yes, but will probably abstain'],
-                'thresholdAnswers':[
+                    'No'],
+                'thresholdAnswers': [
                     'Yes'],
             },
             {
-                'question': 'Who would you rather vote for?',
+                'question': 'What type of cell phone do you own?',
                 'type': 'singleAnswer',
-                'answers':[
-                    'Hillary Clinton',
-                    'Bernie Sanders',
-		    'Prefer not to say'],
-                'thresholdAnswers':[
-                    'Bernie Sanders'],
+                'answers': [
+                    'Android phone',
+                    'iPhone',
+                    'Other'],
+                'thresholdAnswers': [
+                    'Android phone'],
             },
             {
-                'question': 'Who would you rather vote for?',
+                'question': 'What brand is your Android phone?',
                 'type': 'singleAnswer',
-                'answers':[
-                    'Hillary Clinton',
-                    'Donald Trump',
-		    'Prefer not to say'],
+                'answers': [
+                    'Google',
+                    'Samsung',
+                    'LG',
+                    'Other'],
             }
         ]
     }
     try:
         survey = cs.surveys().insert(body=body_def).execute()
-    except googleapiclient.errors.HttpError, e:
+    except HttpError, e:
         print 'Error creating the survey: %s\n' % e
         return None
     return survey
@@ -345,13 +345,15 @@ def setup_auth(args):
     if args.service_account:
         # Service accounts will follow the following authenication.
         client_email = args.service_account
-	secret_file = args.service_account_secrets_file
-	if secret_file.endswith('json'):
-	    credentials = ServiceAccountCredentials.from_json_keyfile_name(
-		secret_file, SCOPES)
-	elif secret_file.endswith('p12'):
-	    credentials = ServiceAccountCredentials.from_p12_keyfile(
-	        client_email, secret_file, SCOPES)
+        secret_file = args.service_account_secrets_file
+        if secret_file.endswith('json'):
+            credentials = ServiceAccountCredentials.from_json_keyfile_name(
+                secret_file, SCOPES)
+        elif secret_file.endswith('p12'):
+            credentials = ServiceAccountCredentials.from_p12_keyfile(
+                client_email, secret_file, SCOPES)
+        else:
+            raise RuntimeError('Credentials file must end with .json or .p12.')
 
     else:
         flow = flow_from_clientsecrets(args.client_secrets_file, scope=SCOPES)
