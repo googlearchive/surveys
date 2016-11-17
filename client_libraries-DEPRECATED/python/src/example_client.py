@@ -44,6 +44,7 @@ $ ./example_client.py fetch --survey_id <id> --results_file=~/my_results.xls \
 
 import argparse
 import os
+import pprint
 
 import httplib2
 from googleapiclient.discovery import build_from_document
@@ -206,7 +207,7 @@ def main():
     if args.operation == _GET:
         if not args.survey_id:
             parser.error('--survey_id is required for this operation.')
-        print get_survey(cs, args.survey_id)
+        pprint.pprint(get_survey(cs, args.survey_id))
 
     if args.operation == _LIST:
         list_surveys(cs)
@@ -234,7 +235,7 @@ def list_surveys(cs):
     """
     results = cs.surveys().list().execute()
     for s in results.get('resources'):
-        print "ID: %s, Title: %s" % (s.get('surveyUrlId'), s.get('title'))
+        pprint.pprint(s)
 
 
 def start_survey(cs, survey_id, autostart_max_cost_per_response=0):
