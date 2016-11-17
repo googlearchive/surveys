@@ -36,8 +36,8 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using Google.Apis.Auth.OAuth2;
-using Google.Apis.Consumersurveys.v2;
-using Google.Apis.Consumersurveys.v2.Data;
+using Google.Apis.ConsumerSurveys.v2;
+using Google.Apis.ConsumerSurveys.v2.Data;
 using Google.Apis.Services;
 using NDesk.Options;
 using System.IO;
@@ -140,7 +140,7 @@ namespace ConsumerSurveysSample
                 }
                 Survey survey = CreateSurvey(cs, owners);
                 Console.WriteLine("Create survey with id: " + survey.SurveyUrlId);
-                survey = UpdateSurveyResponseCount(cs, survey.SurveyUrlId, 120);
+//                survey = UpdateSurveyResponseCount(cs, survey.SurveyUrlId, 120);
             }
             if (operation == START)
             {
@@ -188,19 +188,21 @@ namespace ConsumerSurveysSample
         /// A Survey object containing information about the survey.
         /// </returns>
 
-        private static Survey CreateSurvey(ConsumersurveysService cs, List<String> owners)
+        private static Survey CreateSurvey(ConsumerSurveysService cs, List<String> owners)
         {
+            List<string> langs = new List<string>();
+            langs.Add("en-US");
+
             SurveyAudience audience = new SurveyAudience()
             {
-                Country = "US"
+                Country = "US",
+                Languages = langs
             };
             List<SurveyQuestion> questions = new List<SurveyQuestion>();
             SurveyQuestion question = new SurveyQuestion()
             {
-                UnitsPosition = "before",
-                Type = "openNumericQuestion",
+                Type = "numericOpenEnded",
                 Question = "How much did you pay for your last phone?",
-                LowValueLabel = "1",
                 UnitOfMeasurementLabel = "$",
                 SingleLineResponse = true,
                 OpenTextPlaceholder = "enter amount here",
@@ -230,7 +232,7 @@ namespace ConsumerSurveysSample
         /// A Survey object containing information about the survey.
         /// </returns>
         private static Survey UpdateSurveyResponseCount(
-            ConsumersurveysService cs, String surveyId, int responseCount)
+            ConsumerSurveysService cs, String surveyId, int responseCount)
         {
             Survey survey = new Survey()
             {
@@ -248,7 +250,7 @@ namespace ConsumerSurveysSample
         /// <returns>
         /// A Survey object containing information about the survey.
         /// </returns>      
-        private static Survey StartSurvey(ConsumersurveysService cs, String surveyId)
+        private static Survey StartSurvey(ConsumerSurveysService cs, String surveyId)
         {
             Survey survey = new Survey()
             {
@@ -266,7 +268,7 @@ namespace ConsumerSurveysSample
         /// <returns>
         /// A Survey object containing information about the survey.
         /// </returns> 
-        private static Survey GetSurvey(ConsumersurveysService cs, String surveyId)
+        private static Survey GetSurvey(ConsumerSurveysService cs, String surveyId)
         {
             Survey survey = cs.Surveys.Get(surveyId).Execute();
             return survey;
@@ -276,7 +278,7 @@ namespace ConsumerSurveysSample
         /// Prints the surveys that are owned by the given user.
         /// </summary>
         /// <param name="cs"> The consumer survey service used to send the HTTP requests.</param>
-        private static void ListSurveys(ConsumersurveysService cs)
+        private static void ListSurveys(ConsumerSurveysService cs)
         {
             var surveyListResponse = cs.Surveys.List().Execute();
             foreach (Survey survey in surveyListResponse.Resources)
@@ -292,7 +294,7 @@ namespace ConsumerSurveysSample
         /// <param name="surveyId"> The survey id for which we are downloading the results for.</param>
         /// <param name="resultFile"> The file name which we write the survey results to.</param>
         private static void GetSurveyResults(
-            ConsumersurveysService cs, String surveyId, String resultFile)
+            ConsumerSurveysService cs, String surveyId, String resultFile)
         {
             FileStream fileSteam = new FileStream(resultFile, FileMode.Create);
             cs.Results.Get(surveyId).Download(fileSteam);
@@ -305,7 +307,7 @@ namespace ConsumerSurveysSample
         /// <returns>
         /// The consumer survey service used to send the HTTP requests.
         /// </returns>         
-        private static ConsumersurveysService GetServiceAccountCredential(
+        private static ConsumerSurveysService GetServiceAccountCredential(
             String serviceAccountEmail)
         {
             X509Certificate2 certificate;
@@ -328,7 +330,7 @@ namespace ConsumerSurveysSample
                 }.FromCertificate(certificate));
         
             // Creating the consumer surveys service.
-            var service = new ConsumersurveysService(new BaseClientService.Initializer()
+            var service = new ConsumerSurveysService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
             });
@@ -336,3 +338,4 @@ namespace ConsumerSurveysSample
         }
     }
 }
+
