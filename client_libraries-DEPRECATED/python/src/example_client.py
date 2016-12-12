@@ -59,8 +59,8 @@ _SERVICE_ACCOUNT_SECRETS = 'robot_account_secret.json'
 _OAUTH_CLIENT_SECRETS = 'client_secrets.json'
 OAUTH2_STORAGE = 'oauth2.dat'
 SCOPES = [
-    'https://www.googleapis.com/auth/consumersurveys',
-    'https://www.googleapis.com/auth/consumersurveys.readonly',
+    'https://www.googleapis.com/auth/surveys',
+    'https://www.googleapis.com/auth/surveys.readonly',
     'https://www.googleapis.com/auth/userinfo.email',
 ]
 
@@ -159,7 +159,7 @@ def main():
     # Load the local copy of the discovery document
     f = file(os.path.join(
         os.path.dirname(__file__),
-        "consumersurveys_v2_discovery.json"), "r")
+        "surveys_v2_discovery.json"), "r")
     discovery_file = f.read()
     f.close()
 
