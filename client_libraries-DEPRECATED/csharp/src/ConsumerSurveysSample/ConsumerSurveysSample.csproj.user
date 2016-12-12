@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <StartArguments>-o=list -s="cak6sffrdwzww" -oe="921445131002-qpb2bv24f7b258qclbq57f4lrv014odc%40developer.gserviceaccount.com" -se="521425131008-qpb2bv25f7a258qclbq67f4lrv014odc%40developer.gserviceaccount.com"</StartArguments>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>-o="921445134009-qpb2bv24f7a258qclbq57f5lrv014odc%40developer.gserviceaccount.com" -s="921945144008-qpb2bv24f7a258qclbq57f4lrv016odc%40developer.gserviceaccount.com"</StartArguments>
-  </PropertyGroup>
-</Project>

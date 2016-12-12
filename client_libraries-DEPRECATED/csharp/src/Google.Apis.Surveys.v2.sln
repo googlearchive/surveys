@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleSurveysSample", "GoogleSurveysSample\GoogleSurveysSample.csproj", "{9154CEF5-779B-4F4F-A378-2240B0DF169E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		ReleaseSigned|Any CPU = ReleaseSigned|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9154CEF5-779B-4F4F-A378-2240B0DF169E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9154CEF5-779B-4F4F-A378-2240B0DF169E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9154CEF5-779B-4F4F-A378-2240B0DF169E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9154CEF5-779B-4F4F-A378-2240B0DF169E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9154CEF5-779B-4F4F-A378-2240B0DF169E}.ReleaseSigned|Any CPU.ActiveCfg = Debug|Any CPU
+		{9154CEF5-779B-4F4F-A378-2240B0DF169E}.ReleaseSigned|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
