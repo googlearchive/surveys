@@ -4,3 +4,4 @@ include
 lib
 client_secrets.json
 oauth2.dat
+*.pyc

@@ -12,5 +12,7 @@ To report an issue or request a feature, please [create a new issue](https://iss
 
 # Contents
 
+- `api-samples`: Code samples for interacting with the Google Surveys API,
+  organized in language-specific directories.
 - `client_libraries-DEPRECATED`: C#, Java, and Python client libraries that are
   deprecated and no longer maintained. Preserved here for archival purposes.
