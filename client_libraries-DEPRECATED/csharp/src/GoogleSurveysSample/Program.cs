@@ -117,13 +117,7 @@ namespace GoogleSurveysSample
                 return;
             }
 
-            if (serviceAccountEmail == null)
-            {
-                Console.WriteLine("\nserviceAccountEmail must be specified.");
-                return;
-            }
-
-            var cs = GetServiceAccountCredential(serviceAccountEmail);
+            var cs = GetServiceAccountCredential();
 
             if (cs == null)
             {
@@ -142,6 +136,7 @@ namespace GoogleSurveysSample
                 Console.WriteLine("Create survey with id: " + survey.SurveyUrlId);
 //                survey = UpdateSurveyResponseCount(cs, survey.SurveyUrlId, 120);
             }
+
             if (operation == START)
             {
                 if (surveyId == null)
@@ -151,6 +146,7 @@ namespace GoogleSurveysSample
                 }
                 StartSurvey(cs, surveyId);
             }
+
             if (operation == SET_RESPONSE_COUNT)
             {
                 if (surveyId == null)
@@ -160,6 +156,7 @@ namespace GoogleSurveysSample
                 }
                 UpdateSurveyResponseCount(cs, surveyId, 120);
             }
+
             if (operation == FETCH)
             {
                 if (surveyId == null)
@@ -173,6 +170,7 @@ namespace GoogleSurveysSample
                 }
                 GetSurveyResults(cs, surveyId, resultFile);
             }
+
             if (operation == LIST)
             {
                 ListSurveys(cs);
@@ -303,32 +301,23 @@ namespace GoogleSurveysSample
         /// <summary>
         /// Creates a Surveys service that be used to send HTTP requests.
         /// </summary>
-        /// <param name="serviceAccointEmail"> The service account email we are using for 2LO.</param>
         /// <returns>
         /// The survey service used to send the HTTP requests.
         /// </returns>         
-        private static SurveysService GetServiceAccountCredential(
-            String serviceAccountEmail)
+        private static SurveysService GetServiceAccountCredential()
         {
-            X509Certificate2 certificate;
-            try {
-                certificate = new X509Certificate2(
-                    @".\key.p12", "notasecret", X509KeyStorageFlags.Exportable);
-            } catch (Exception e)
+            String fileName = "account_secret.json";
+            var scopes = new[] {
+                SurveysService.Scope.Surveys,
+                SurveysService.Scope.SurveysReadonly,
+                SurveysService.Scope.UserinfoEmail };
+
+            GoogleCredential credential;
+            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
-                Console.WriteLine("Make sure key.p12 file is in the right location.\n" +
-                    e.ToString());
-                return null;
+                credential = GoogleCredential.FromStream(stream).CreateScoped(scopes);
             }
-            ServiceAccountCredential credential = new ServiceAccountCredential(
-                new ServiceAccountCredential.Initializer(serviceAccountEmail)
-                {
-                    Scopes = new[] {
-                        "https://www.googleapis.com/auth/surveys",
-                        "https://www.googleapis.com/auth/surveys.readonly",
-                        "https://www.googleapis.com/auth/userinfo.email" }
-                }.FromCertificate(certificate));
-        
+
             // Creating the surveys service.
             var service = new SurveysService(new BaseClientService.Initializer()
             {
