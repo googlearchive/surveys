@@ -8,5 +8,4 @@ For more information on the Google Suverys API, check out the [Google Surveys AP
 
 # Contents
 
-- `csharp`: C# version of client library
 - `java`: Java version of client library

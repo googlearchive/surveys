@@ -14,5 +14,5 @@ To report an issue or request a feature, please [create a new issue](https://iss
 
 - `api-samples`: Code samples for interacting with the Google Surveys API,
   organized in language-specific directories.
-- `client_libraries-DEPRECATED`: C# and Java client libraries that are
+- `client_libraries-DEPRECATED`: Java client library that is
   deprecated and no longer maintained. Preserved here for archival purposes.
