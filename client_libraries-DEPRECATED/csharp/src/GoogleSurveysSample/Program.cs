@@ -217,6 +217,8 @@ namespace GoogleSurveysSample
 
         private static Survey CreateSurvey(SurveysService surveysService, List<String> owners)
         {
+
+            // [START google_surveys_create]
             List<string> langs = new List<string>();
             langs.Add("en-US");
 
@@ -236,7 +238,7 @@ namespace GoogleSurveysSample
             };
             questions.Add(question);
 
-            Survey survey = new Survey()
+            Survey newSurvey = new Survey()
             {
                 Owners = owners,
                 Description = "What phones do people buy and how much do they pay?",
@@ -245,8 +247,10 @@ namespace GoogleSurveysSample
                 Audience = audience,
                 Questions = questions,
             };
-            Survey createdSurvey = surveysService.Surveys.Insert(survey).Execute();
-            return createdSurvey;
+            Survey survey = surveysService.Surveys.Insert(newSurvey).Execute();
+            // [END google_surveys_create]
+
+            return survey;
         }
 
         /// <summary>
@@ -279,12 +283,15 @@ namespace GoogleSurveysSample
         /// </returns>      
         private static Survey StartSurvey(SurveysService surveysService, String surveyId)
         {
-            Survey survey = new Survey()
+            // [START google_surveys_start]
+            Survey newSurvey = new Survey()
             {
                 State = "running",
             };
-            Survey updatedSurvey = surveysService.Surveys.Update(survey, surveyId).Execute();
-            return updatedSurvey;
+            Survey survey = surveysService.Surveys.Update(newSurvey, surveyId).Execute();
+            // [END google_surveys_start]
+
+            return survey;
         }
 
         /// <summary>
@@ -297,7 +304,10 @@ namespace GoogleSurveysSample
         /// </returns>
         private static Survey GetSurvey(SurveysService surveysService, String surveyId)
         {
+            // [START google_surveys_get]
             Survey survey = surveysService.Surveys.Get(surveyId).Execute();
+            // [END google_surveys_get]
+
             return survey;
         }
 
@@ -308,7 +318,9 @@ namespace GoogleSurveysSample
         /// <param name="surveyId"> The survey id of the survey we are deleting.</param>
         private static void DeleteSurvey(SurveysService surveysService, String surveyId)
         {
+            // [START google_surveys_delete]
             surveysService.Surveys.Delete(surveyId).Execute();
+            // [END google_surveys_delete]
         }
 
         /// <summary>
@@ -317,7 +329,10 @@ namespace GoogleSurveysSample
         /// <param name="surveysService"> The survey service used to send the HTTP requests.</param>
         private static void ListSurveys(SurveysService surveysService)
         {
+            // [START google_surveys_list]
             var surveyListResponse = surveysService.Surveys.List().Execute();
+            // [END google_surveys_list]
+
             foreach (Survey survey in surveyListResponse.Resources)
             {
                 Console.WriteLine(survey.SurveyUrlId);
@@ -333,8 +348,10 @@ namespace GoogleSurveysSample
         private static void GetSurveyResults(
             SurveysService surveysService, String surveyId, String resultFile)
         {
+            // [START google_surveys_results]
             FileStream fileSteam = new FileStream(resultFile, FileMode.Create);
             surveysService.Results.Get(surveyId).Download(fileSteam);
+            // [END google_surveys_results]
         }
 
         /// <summary>
@@ -345,24 +362,27 @@ namespace GoogleSurveysSample
         /// </returns>         
         private static SurveysService GetServiceAccountCredential()
         {
-            String fileName = "account_secret.json";
+            String accountSecretFileName = "account_secret.json";
+
+            // [START google_surveys_auth]
             var scopes = new[] {
                 SurveysService.Scope.Surveys,
                 SurveysService.Scope.SurveysReadonly,
                 SurveysService.Scope.UserinfoEmail };
 
             GoogleCredential credential;
-            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream(accountSecretFileName, FileMode.Open, FileAccess.Read))
             {
                 credential = GoogleCredential.FromStream(stream).CreateScoped(scopes);
             }
 
-            // Creating the surveys service.
-            var service = new SurveysService(new BaseClientService.Initializer()
+            var surveysService = new SurveysService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
             });
-            return service;
+            // [END google_surveys_auth]
+
+            return surveysService;
         }
     }
 }
