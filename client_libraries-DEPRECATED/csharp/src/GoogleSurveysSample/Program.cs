@@ -34,7 +34,6 @@ To list the list of surveys you are an owner of:
 */
 using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Surveys.v2;
 using Google.Apis.Surveys.v2.Data;
@@ -57,6 +56,12 @@ namespace GoogleSurveysSample
         // Start an existing survey.
         private static string START = "start";
 
+        // Get an existing survey.
+        private static string GET = "get";
+
+        // Delete an existing survey.
+        private static string DELETE = "delete";
+
         // Fetch the result of an existing survey.
         private static string FETCH = "fetch";
 
@@ -69,6 +74,8 @@ namespace GoogleSurveysSample
             operations.Add(CREATE);
             operations.Add(SET_RESPONSE_COUNT);
             operations.Add(START);
+            operations.Add(GET);
+            operations.Add(DELETE);
             operations.Add(FETCH);
             operations.Add(LIST);
 
@@ -117,9 +124,9 @@ namespace GoogleSurveysSample
                 return;
             }
 
-            var cs = GetServiceAccountCredential();
+            var surveysService = GetServiceAccountCredential();
 
-            if (cs == null)
+            if (surveysService == null)
             {
                 Console.WriteLine("\nA Survey service was not created.");
                 return;
@@ -132,9 +139,9 @@ namespace GoogleSurveysSample
                     Console.WriteLine("\nOwner must be specified when creating a survey.");
                     return;
                 }
-                Survey survey = CreateSurvey(cs, owners);
+                Survey survey = CreateSurvey(surveysService, owners);
                 Console.WriteLine("Create survey with id: " + survey.SurveyUrlId);
-//                survey = UpdateSurveyResponseCount(cs, survey.SurveyUrlId, 120);
+//                survey = UpdateSurveyResponseCount(surveysService, survey.SurveyUrlId, 120);
             }
 
             if (operation == START)
@@ -144,7 +151,29 @@ namespace GoogleSurveysSample
                     Console.WriteLine("\nsurveyId must be specified when starting a survey.");
                     return;
                 }
-                StartSurvey(cs, surveyId);
+                StartSurvey(surveysService, surveyId);
+            }
+
+            if (operation == GET)
+            {
+                if (surveyId == null)
+                {
+                    Console.WriteLine("\nsurveyId must be specified when getting a survey.");
+                    return;
+                }
+                Survey survey = GetSurvey(surveysService, surveyId);
+                Console.WriteLine("\nSurvey title: " + survey.Title);
+            }
+
+            if (operation == DELETE)
+            {
+                if (surveyId == null)
+                {
+                    Console.WriteLine("\nsurveyId must be specified when deleting a survey.");
+                    return;
+                }
+                DeleteSurvey(surveysService, surveyId);
+                Console.WriteLine("\nDeleted Survey " + surveyId);
             }
 
             if (operation == SET_RESPONSE_COUNT)
@@ -154,7 +183,7 @@ namespace GoogleSurveysSample
                     Console.WriteLine("\nsurveyId must be specified when setting response count.");
                     return;
                 }
-                UpdateSurveyResponseCount(cs, surveyId, 120);
+                UpdateSurveyResponseCount(surveysService, surveyId, 120);
             }
 
             if (operation == FETCH)
@@ -168,25 +197,25 @@ namespace GoogleSurveysSample
                 {
                     resultFile = "results.xls";
                 }
-                GetSurveyResults(cs, surveyId, resultFile);
+                GetSurveyResults(surveysService, surveyId, resultFile);
             }
 
             if (operation == LIST)
             {
-                ListSurveys(cs);
+                ListSurveys(surveysService);
             }
         }
 
         /// <summary>
         /// Creates a new survey using a json object containing necessary survey fields.
         /// </summary>
-        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
+        /// <param name="surveysService"> The survey service used to send the HTTP requests.</param>
         /// <param name="owners"> The list of owners that will be in the newly created survey.</param>
         /// <returns>
         /// A Survey object containing information about the survey.
         /// </returns>
 
-        private static Survey CreateSurvey(SurveysService cs, List<String> owners)
+        private static Survey CreateSurvey(SurveysService surveysService, List<String> owners)
         {
             List<string> langs = new List<string>();
             langs.Add("en-US");
@@ -216,69 +245,79 @@ namespace GoogleSurveysSample
                 Audience = audience,
                 Questions = questions,
             };
-            Survey createdSurvey = cs.Surveys.Insert(survey).Execute();
+            Survey createdSurvey = surveysService.Surveys.Insert(survey).Execute();
             return createdSurvey;
         }
 
         /// <summary>
         /// Updates the response count of the survey.
         /// </summary>
-        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
+        /// <param name="surveysService"> The survey service used to send the HTTP requests.</param>
         /// <param name="surveyId"> The survey id for which we are updating the response count for.</param>
         /// <param name="responseCount">  An integer specifing the new response count for the survey.</param>
         /// <returns>
         /// A Survey object containing information about the survey.
         /// </returns>
         private static Survey UpdateSurveyResponseCount(
-            SurveysService cs, String surveyId, int responseCount)
+            SurveysService surveysService, String surveyId, int responseCount)
         {
             Survey survey = new Survey()
             {
                 WantedResponseCount = responseCount,
             };
-            Survey updatedSurvey = cs.Surveys.Update(survey, surveyId).Execute();
+            Survey updatedSurvey = surveysService.Surveys.Update(survey, surveyId).Execute();
             return updatedSurvey;
         }
 
         /// <summary>
         /// Sends the survey to the review process and it is then started.
         /// </summary>
-        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
+        /// <param name="surveysService"> The survey service used to send the HTTP requests.</param>
         /// <param name="surveyId"> The survey id of the survey we are starting.</param>
         /// <returns>
         /// A Survey object containing information about the survey.
         /// </returns>      
-        private static Survey StartSurvey(SurveysService cs, String surveyId)
+        private static Survey StartSurvey(SurveysService surveysService, String surveyId)
         {
             Survey survey = new Survey()
             {
                 State = "running",
             };
-            Survey updatedSurvey = cs.Surveys.Update(survey, surveyId).Execute();
+            Survey updatedSurvey = surveysService.Surveys.Update(survey, surveyId).Execute();
             return updatedSurvey;
         }
 
         /// <summary>
-        /// Returns the Survey object for tbe specified survey id.
+        /// Gets information about a survey.
         /// </summary>
-        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
-        /// <param name="surveyId"> The survey id of the Survey object we need.</param>
+        /// <param name="surveysService"> The survey service used to send the HTTP requests.</param>
+        /// <param name="surveyId"> The survey id of the survey we are getting.</param>
         /// <returns>
         /// A Survey object containing information about the survey.
-        /// </returns> 
-        private static Survey GetSurvey(SurveysService cs, String surveyId)
+        /// </returns>
+        private static Survey GetSurvey(SurveysService surveysService, String surveyId)
         {
-            Survey survey = cs.Surveys.Get(surveyId).Execute();
+            Survey survey = surveysService.Surveys.Get(surveyId).Execute();
             return survey;
+        }
+
+        /// <summary>
+        /// Deletes a survey.
+        /// </summary>
+        /// <param name="surveysService"> The survey service used to send the HTTP requests.</param>
+        /// <param name="surveyId"> The survey id of the survey we are deleting.</param>
+        private static void DeleteSurvey(SurveysService surveysService, String surveyId)
+        {
+            surveysService.Surveys.Delete(surveyId).Execute();
         }
 
         /// <summary>
         /// Prints the surveys that are owned by the given user.
         /// </summary>
-        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
-        private static void ListSurveys(SurveysService cs)
+        /// <param name="surveysService"> The survey service used to send the HTTP requests.</param>
+        private static void ListSurveys(SurveysService surveysService)
         {
-            var surveyListResponse = cs.Surveys.List().Execute();
+            var surveyListResponse = surveysService.Surveys.List().Execute();
             foreach (Survey survey in surveyListResponse.Resources)
             {
                 Console.WriteLine(survey.SurveyUrlId);
@@ -288,14 +327,14 @@ namespace GoogleSurveysSample
         /// <summary>
         /// Writes the survey results into a xls file.
         /// </summary>
-        /// <param name="cs"> The survey service used to send the HTTP requests.</param>
+        /// <param name="surveysService"> The survey service used to send the HTTP requests.</param>
         /// <param name="surveyId"> The survey id for which we are downloading the results for.</param>
         /// <param name="resultFile"> The file name which we write the survey results to.</param>
         private static void GetSurveyResults(
-            SurveysService cs, String surveyId, String resultFile)
+            SurveysService surveysService, String surveyId, String resultFile)
         {
             FileStream fileSteam = new FileStream(resultFile, FileMode.Create);
-            cs.Results.Get(surveyId).Download(fileSteam);
+            surveysService.Results.Get(surveyId).Download(fileSteam);
         }
 
         /// <summary>
