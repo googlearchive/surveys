@@ -13,7 +13,12 @@ def list_surveys(surveys_service):
     Args:
         surveys_service: The Surveys Service used to send the HTTP request.
     """
-    return surveys_service.surveys().list().execute()
+
+    # [START google_surveys_list]
+    surveys = surveys_service.surveys().list().execute()
+    # [END google_surveys_list]
+
+    return surveys
 
 if __name__ == '__main__':
     try:

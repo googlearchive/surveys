@@ -15,7 +15,12 @@ def get_survey_results(surveys_service, survey_id):
         survey_id: The survey id for which we are downloading the survey
                    results for.
     """
-    return surveys_service.results().get_media(surveyUrlId=survey_id).execute()
+
+    # [START google_surveys_results]
+    survey = surveys_service.results().get_media(surveyUrlId=survey_id).execute()
+    # [END google_surveys_results]
+
+    return survey
 
 
 if __name__ == '__main__':

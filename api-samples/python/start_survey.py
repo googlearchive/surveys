@@ -17,11 +17,14 @@ def start_survey(surveys_service, survey_id, max_cost_per_response):
                                responses. For more details, visit
                                https://developers.google.com/surveys/v2/reference/surveys.
     """
+
+    # [START google_surveys_start]
     if max_cost_per_response:
         json_spec = {'maxCostPerResponseNanos': max_cost_per_response}
     else:
         json_spec = {}
     surveys_service.surveys().start(resourceId=survey_id, body=json_spec).execute()
+    # [END google_surveys_start]
 
 
 if __name__ == '__main__':

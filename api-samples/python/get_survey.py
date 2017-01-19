@@ -18,7 +18,12 @@ def get_survey(surveys_service, survey_id):
     Returns:
         A dictionary containing the survey fields.
     """
-    return surveys_service.surveys().get(surveyUrlId=survey_id).execute()
+
+    # [START google_surveys_get]
+    survey = surveys_service.surveys().get(surveyUrlId=survey_id).execute()
+    # [END google_surveys_get]
+
+    return survey
 
 
 if __name__ == '__main__':

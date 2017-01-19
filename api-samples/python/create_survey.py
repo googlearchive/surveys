@@ -16,6 +16,8 @@ def create_survey(surveys_service, owner_emails):
     Returns:
         A dictionary containing the survey id of the created survey.
     """
+
+    # [START google_surveys_create]
     body_def = {
         'title': 'Student cell phone ownership',
         'description': 'Ownership of cell phones, targeted towards students.',
@@ -59,7 +61,10 @@ def create_survey(surveys_service, owner_emails):
         ]
     }
 
-    return surveys_service.surveys().insert(body=body_def).execute()
+    survey = surveys_service.surveys().insert(body=body_def).execute()
+    # [END google_surveys_create]
+
+    return survey
 
 
 if __name__ == '__main__':
@@ -70,8 +75,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     try:
-        survey = create_survey(get_service_account_auth(), args.owner_email)
+        created_survey = create_survey(get_service_account_auth(), args.owner_email)
     except HttpError, e:
         print 'Error creating survey: %s\n' % e
     else:
-        print 'Successully created survey with id %s\n' % survey['surveyUrlId']
+        print 'Successully created survey with id %s\n' % created_survey['surveyUrlId']

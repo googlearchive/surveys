@@ -14,7 +14,10 @@ def delete_survey(surveys_service, survey_id):
         surveys_service: The Survey Service used to send the HTTP request.
         survey_id: The id of the survey to delete.
     """
+
+    # [START google_surveys_delete]
     surveys_service.surveys().delete(surveyUrlId=survey_id).execute()
+    # [END google_surveys_delete]
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
